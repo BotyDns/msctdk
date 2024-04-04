@@ -3,7 +3,32 @@
 
 \subsection{Tanítóadatok}
 
-A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanítóadatok közé, illetve a Kiskörei víztároló is. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz tartozik egy-egy nyári+tavaszi, téli és őszi multispektrális műholdkép, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek.
+A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanítóadatok közé, illetve a Kiskörei víztároló is. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz tartozik egy-egy nyári+tavaszi, téli és őszi multispektrális műholdkép, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek. A tanítóadatok pixelenként vannak előállítva, így a végső adathalmaz 27 millió tanítóadatból (pixelből) áll. Minden pixelhez hozzá van rendelve a vörös, kék, zöld, közeli infravörös sáv, illetve a "PI", "NDWI", "NDVI", "RNDVI", "SR" indexek. Ezen felül minden pixel címkézve van a \ref{tab:waste-detection-labels} táblázatban leírtak szerint.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.1\textwidth} | p{0.2\textwidth} | p{0.7\textwidth} | }
+		\hline
+		\textbf{Címke azonosító} & \textbf{Címke neve} & \textbf{Címke magyarázat} \\
+		\hline \hline
+		\emph{100} & Hulladék & Azon területek, melyeken hulladékot találtunk. \\
+		\hline
+		\emph{200} & Víz & olyan területek, melyeken kizárólag vizet találtunk, általában folyók. \\
+		\hline
+		\emph{300} & Legelők/Erdők & Zöld övezetből álló vad területek. Ezek lehetnek fák lombjai vagy füves zónák. \\
+		\hline
+        \emph{400} & Mezők & Olyan földes területek, melyek meg vannak művelve, illetve ahol mezőgazdasági növények találhatóak, például gabonafélék. \\
+		\hline
+        \emph{500} & Ismeretlen & Olyan területek, melyek a korábbi kategóriákba nem sorolhatók bele. Ilyenek az épületek, aszfaltozott utak, háztetők, mezei utak. \\
+		\hline
+	\end{tabular}
+	\caption{A tanítóadatok címkéi}
+	\label{tab:waste-detection-labels}
+\end{table}
 
 \subsection{Tanítási paraméterek}
+
+A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 16GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket a Random Forest fák mélységének a limitálásával értünk el, ahol látható volt, hogy
+
+
 
