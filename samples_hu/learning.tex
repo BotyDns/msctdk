@@ -28,7 +28,33 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 
 \subsection{Tanítási paraméterek}
 
-A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 16GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket a Random Forest fák mélységének a limitálásával értünk el, ahol látható volt, hogy
+A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értük el, hogy a Random Forest fák méretét 20 mélységűre limitáltuk. Ennek köszönhetően a modellek méretét 2GB-ra tudtuk csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}.
 
+Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok voltak: A \ref{fig:unbalanced-data} ábrából látható, hogy kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról, így a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra.
 
+\pgfplotstableread[row sep=\\,col sep=&]{
+    label           & value     \\
+    Hulladék        & 29513     \\
+    Víz             & 926356    \\
+    Legelők/Erdők   & 12573615  \\
+    Mezők           & 8043948   \\
+    Ismeretlen      & 5669416   \\
+}\datacounts
 
+\begin{figure}
+    \begin{tikzpicture}
+        \begin{axis}[
+                ybar,
+                ymode = log,
+                bar width=1cm,
+                width=\textwidth,
+                height=0.5\textwidth,
+                symbolic x coords={Hulladék,Víz,Legelők/Erdők,Mezők,Ismeretlen},
+                xtick=data,
+            ]
+            \addplot table[x=label,y=value]{\datacounts};
+        \end{axis}
+    \end{tikzpicture}
+    \caption{Az adatok közötti aránytalanság, logaritmikus skálázással}
+    \label{fig:unbalanced-data}
+\end{figure}

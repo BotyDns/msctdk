@@ -210,6 +210,7 @@
 % Graphics
 \RequirePackage{graphicx}
 \RequirePackage{float}
+\RequirePackage{pgfplots}
 % Set maximum and minimum size for figures
 \RequirePackage[export]{adjustbox}
 % Subfigures
