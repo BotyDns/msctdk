@@ -1,2 +1,13 @@
 \chapter{Megvalósítás és alkalmazás}
 \label{ch:impl}
+
+\subsection{A Tiszta-Tisza alkalmazás}
+
+A Tiszta-Tisza webalkalmazás \todo{melyik link kerüljön ide?} a PET Kupa által használt webalkalmazás, melynek az a célja, hogy egy olyan felületet biztosítson, ahol meglehet tekinteni a jelenleg ismert folyómentén található hulladéklerakókat, illetve akár a regisztrált felhasználók is be tudnak jelenteni ilyet. A PET Kupa megbízta az egyetemet azzal a feladattal, hogy ezt továbfejlessze, és a feladatok közé tartozott az is, hogy a Random Forest modell eredményeit integráljuk ebbe az alkalmazásba. Ezt a feladatot én vállaltam el.
+
+Tekintve arra, hogy a Tiszta-Tisza térképén pontok vannak megjelenítve, a modell által detektált területeket is pontokkal jelöljük. Ehhez egy nagyobb terület közepére helyezünk el egy pontot. Előfordulhat olyan is, hogy a modell olyan képeket klasszifikál, melyek el vannak torzítva (például magas páratartalom miatt). Ilyenkor a false-positive-ok aránya lényegesen megnő. Ennek korrigálására a Tiszta-Tisza alkalmazásban a legutolsó három detektálást (legfeljebb 1 hónap különbséggel) veszem figyelembe és "többségi szavazással" döntöm el, hogy milyen területek kerülnek fel a térképre. A lépéseket a \ref{ch:voting} fejezetben részletezem.
+
+\subsection{Többségi szavazás}
+\label{ch:voting}
+
+A már meglevő szervertől poligonok formájában, GeoJSON-ben \cite{rfc7946} lehet lekérni az adott napon detektált hulladékos területeket. 

@@ -7,7 +7,7 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ | p{0.1\textwidth} | p{0.2\textwidth} | p{0.7\textwidth} | }
+	\begin{tabular}{ | p{0.1\textwidth} | p{0.2\textwidth} | p{0.6\textwidth} | }
 		\hline
 		\textbf{Címke azonosító} & \textbf{Címke neve} & \textbf{Címke magyarázat} \\
 		\hline \hline
@@ -28,9 +28,9 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 
 \subsection{Tanítási paraméterek}
 
-A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értük el, hogy a Random Forest fák méretét 20 mélységűre limitáltuk. Ennek köszönhetően a modellek méretét 2GB-ra tudtuk csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}.
+A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:model-accuracy} \todo{ábra készítés ide} ábrából látható, hogy a csökkentett modell is hasonlóan teljesít a nagy modellhez képest.
 
-Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok voltak: A \ref{fig:unbalanced-data} ábrából látható, hogy kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról, így a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra.
+Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok voltak: A \ref{fig:unbalanced-data} ábrából látható, hogy kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról, így a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
 
 \pgfplotstableread[row sep=\\,col sep=&]{
     label           & value     \\
@@ -58,3 +58,7 @@ Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon arányt
     \caption{Az adatok közötti aránytalanság, logaritmikus skálázással}
     \label{fig:unbalanced-data}
 \end{figure}
+
+\begin{equation}\label{eq:weights}
+    c\acute{\imath}mke \ s\acute{u}lya=\frac{adathalmaz \ m\acute{e}rete}{c\acute{\imath}mke \ darabsz\acute{a}ma}
+\end{equation}
