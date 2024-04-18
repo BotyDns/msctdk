@@ -67,3 +67,109 @@ Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon arányt
 
 A modell méretének a csökkentésére még megpróbáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer többek között arra is használható, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt.
 
+\subsection{Nyári és téli adatokra való lebontás}
+
+Alapértelmezetten a nyári és téli adatok között lényeges különbség tud lenni távérzékelés szempontból. Ez befolyásolhatja a modell pontosságát is az adott időszakokban. A kutatás során a nyári időszak alatt a márciustól októberig tartó időszakra gondolok, és a téli időszak alatt a novembertől februárig tartó időszakra gondolok. A \ref{fig:winter-vs-summer} ábrából látható, hogy főleg a közeli infravörös (NIR) sávokon nagy eltérések vannak a nyári és téli felvételek között.
+
+
+\begin{figure}
+    \begin{tikzpicture}
+        \begin{axis}
+          [
+          title={Téli felvételek értékei},
+          boxplot/draw direction=y,
+          ytick={0,2000,4000,6000},
+          ymax={8000},
+          xtick={1,2,3,4},
+          xticklabels={Kék, Zöld, Piros, NIR},
+          ]
+          \addplot+[
+          boxplot prepared={
+            median=428,
+            upper quartile=563,
+            lower quartile=315,
+            upper whisker=935,
+            lower whisker=44
+          },
+          ] coordinates {};
+          \addplot+[
+          boxplot prepared={
+            median=530,
+            upper quartile=695,
+            lower quartile=385,
+            upper whisker=1160,
+            lower whisker=1
+          },
+          ] coordinates {};
+          \addplot+[
+          boxplot prepared={
+            median=674,
+            upper quartile=923,
+            lower quartile=497,
+            upper whisker=1562,
+            lower whisker=22
+          },
+          ] coordinates {};
+          \addplot+[
+            boxplot prepared={
+              median=1629,
+              upper quartile=2067,
+              lower quartile=1273,
+              upper whisker=3258,
+              lower whisker=82
+          },
+          ] coordinates {};
+        \end{axis}
+      \end{tikzpicture}
+      \begin{tikzpicture}
+        \begin{axis}
+          [
+          title={Nyári felvételek értékei},
+          boxplot/draw direction=y,
+          ytick={0,2000,4000,6000},
+          ymax={8000},
+          yticklabel=\empty,
+          xtick={1,2,3,4},
+          xticklabels={Kék, Zöld, Piros, NIR},
+          ]
+          \addplot+[
+          boxplot prepared={
+            median=360,
+            upper quartile=638,
+            lower quartile=214,
+            upper whisker=1274,
+            lower whisker=1
+          },
+          ] coordinates {};
+          \addplot+[
+          boxplot prepared={
+            median=578,
+            upper quartile=862,
+            lower quartile=415,
+            upper whisker=1532,
+            lower whisker=1
+          },
+          ] coordinates {};
+          \addplot+[
+          boxplot prepared={
+            median=579,
+            upper quartile=1058,
+            lower quartile=270,
+            upper whisker=2240,
+            lower whisker=1
+          },
+          ] coordinates {};
+          \addplot+[
+            boxplot prepared={
+              median=2850,
+              upper quartile=3830,
+              lower quartile=2103,
+              upper whisker=6420,
+              lower whisker=1
+          },
+          ] coordinates {};
+        \end{axis}
+      \end{tikzpicture}
+    \caption{Nyári és téli adatok összehasonlítása}
+    \label{fig:winter-vs-summer}
+\end{figure}
