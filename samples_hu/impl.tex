@@ -6,7 +6,7 @@
 
 \subsubsection {Az asztali alkalmazás bővítése}
 
-A meglevő asztali alkalmazás alkalmas volt a tanítóadatok hatékony előállítására, de utólag nem lehetett visszanézni, hogy adott műholdfelvételhez milyen tanítóadatok tartoznak, illetve azt sem, hogy az adott tanítóadat hol volt mintavételezve. Az alkalmazás eredetileg egy CSV fájlba eltárolta az összes pixel spektrális értékeit és indexeit, és ezt lehetett használni tanításra. Ennek az volt a hátránya, hogy nehéz volt áttekinteni illetve kiegészíteni az adatokat. Ezért az asztali alkalmazást kiegészítettem ezzel a funkcionalitással, a tanítóadatok előállítása elmentésekor az alkalmazás létrehoz egy külön raszteres réteget is külön minden műholdfelvételhez, melyen látható, hogy mely területek voltak hozzáadva a tanítóadatok közé, így tetszőleges módon előállítható/ellenőrizhető a tanítóhalmaz.
+A meglevő asztali alkalmazás alkalmas volt a tanítóadatok hatékony előállítására, de utólag nem lehetett visszanézni, hogy adott műholdfelvételhez milyen tanítóadatok tartoznak, illetve azt sem, hogy az adott tanítóadat hol volt mintavételezve. Az alkalmazás eredetileg egy CSV fájlban \cite{rfc4180} tárolta el az összes pixel spektrális értékeit és indexeit, és ezt lehetett használni tanításra. Ennek az volt a hátránya, hogy nehéz volt áttekinteni illetve kiegészíteni az adatokat. Ezért az asztali alkalmazást kiegészítettem ezzel a funkcionalitással, a tanítóadatok előállítása elmentésekor az alkalmazás létrehoz egy külön raszteres réteget is külön minden műholdfelvételhez, melyen látható, hogy mely területek voltak hozzáadva a tanítóadatok közé, így tetszőleges módon előállítható/ellenőrizhető a tanítóhalmaz.
 
 \subsubsection {A szerveralkalmazás bővítése}
 
@@ -17,6 +17,93 @@ A szerveralkalmazás és webalkalmazás is bővítésre került: a szerveralkalm
 A Tiszta-Tisza webalkalmazás \todo{melyik link kerüljön ide?} a PET Kupa által használt webalkalmazás, melynek az a célja, hogy egy olyan felületet biztosítson, ahol meglehet tekinteni a jelenleg ismert folyómentén található hulladéklerakókat, illetve akár a regisztrált felhasználók is be tudnak jelenteni ilyet. A PET Kupa megbízta az egyetemet azzal a feladattal, hogy ezt továbfejlessze, és a feladatok közé tartozott az is, hogy a Random Forest modell eredményeit integráljuk ebbe az alkalmazásba. Ezt a feladatot én vállaltam el.
 
 Tekintve arra, hogy a Tiszta-Tisza térképén pontok vannak megjelenítve, a modell által detektált területeket is pontokkal jelöljük. Ehhez egy nagyobb terület közepére helyezünk el egy pontot. Előfordulhat olyan is, hogy a modell olyan képeket klasszifikál, melyek el vannak torzítva (például magas páratartalom miatt). Ilyenkor a false-positive-ok aránya lényegesen megnő. Ennek korrigálására a Tiszta-Tisza alkalmazásban a legutolsó három detektálást (legfeljebb 1 hónap különbséggel) veszem figyelembe és két kép közös metszetével döntöm el, hogy milyen területek kerülnek fel a térképre. A lépéseket a \ref{ch:intersection} fejezetben részletezem.
+
+\subsubsection {A képfeldolgozás gyorsítása}
+A meglevő képfeldolgozó algoritmuson gyorsítani kellett, hogy elfogadható időn belül tudja feldolgozni a tanítóadatokat, illetve a naponta letöltött műholdfelvételeket a szerveren. Ezt a kutatólabor korábbi cikkjében párhuzamosítással javasolták, de egy egyszálú megoldással lényegesen tudtam gyorsítani a képfeldolgozáson: Ehhez egy nagyon hatékony Python programcsomagot, a Numpy-t \cite{harris2020array} használtam fel, mellyel lényegesen megnöveltem a feldolgozás sebességét: A tanítóadatok feldolgozásakor a régi módszer (\ref{src:old-code} forráskód) 16 felvételt tudott feldolgozni 4 nap és 10 óra alatt, míg az átírt módszer (\ref{src:new-code} forráskód) feldolgozott 85 felvételt 20 perc alatt. Az átírás technikája az  ábrából látható.
+
+\lstset{caption={A képfeldolgozás régi módszere}, label=src:old-code}
+\begin{lstlisting}[language={Python}]
+def _calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
+    """
+    Calculating an index based on given numerator and denominator.
+
+    :param numerator: numerator matrix
+    :param denominator: denominator matrix
+    :return: result matrix, containing the calculated values
+    """
+
+    # variables
+    rows = numerator.shape[0]
+    cols = numerator.shape[1]
+    index = np.ndarray(
+        shape=numerator.shape,
+        dtype="float32",
+    )
+
+    # calculate index
+    for i in range(rows):
+        for j in range(cols):
+            if np.isnan(numerator[i, j]) or np.isnan(denominator[i, j]):
+                index[i, j] = float("NaN")
+            elif denominator[i, j] != 0:
+                index[i, j] = numerator[i, j] / denominator[i, j]
+            else:
+                if numerator[i, j] < 0:
+                    index[i, j] = np.nanmin(numerator)
+                elif numerator[i, j] > 0:
+                    index[i, j] = np.nanmax(numerator)
+                else:
+                    index[i, j] = float("NaN")
+
+    # return index values
+    return index
+\end{lstlisting}
+
+\lstset{caption={A képfeldolgozás numpy-al}, label=src:new-code}
+
+\begin{lstlisting}[language={Python}]
+def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
+    """
+    Calculating an index based on given numerator and denominator.
+    
+    :param numerator: numerator matrix
+    :param denominator: denominator matrix
+    :return: result matrix, containing the calculated values
+    """
+    
+    # variables
+    index = np.ndarray(
+        shape=numerator.shape,
+        dtype="float32",
+    )
+    
+    numerator_nan_min = np.nanmin(numerator)
+    numerator_nan_max = np.nanmax(numerator)
+    
+    # calculate index
+    nan_mask = np.isnan(numerator) | np.isnan(denominator)
+    numerator_zero_mask = numerator == 0
+    denominator_zero_mask = denominator == 0
+    
+    invalid_mask = nan_mask | (numerator_zero_mask & denominator_zero_mask)
+    valid_mask = np.logical_not(invalid_mask)
+    
+    valid_denominator_non_zero_mask = valid_mask & np.logical_not(denominator_zero_mask)
+    valid_denominator_zero_mask = valid_mask & denominator_zero_mask
+    
+    numerator_positive_denominator_zero_mask = valid_denominator_zero_mask & (numerator > 0)
+    numerator_negative_denominator_zero_mask = valid_denominator_zero_mask & (numerator < 0)
+    
+    index[invalid_mask] = float("NaN")
+    index[numerator_positive_denominator_zero_mask] = numerator_nan_max
+    index[numerator_negative_denominator_zero_mask] = numerator_nan_min
+    index[valid_denominator_non_zero_mask] = (
+        numerator[valid_denominator_non_zero_mask] / denominator[valid_denominator_non_zero_mask]
+    )
+    
+    # return index values
+    return index
+\end{lstlisting}
 
 \subsection{Közös metszet}
 \label{ch:intersection}
