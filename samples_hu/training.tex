@@ -3,7 +3,7 @@
 
 \subsection{Tanítóadatok}
 
-A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanítóadatok közé, illetve a Kiskörei víztároló is. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz letöltöttem egy-egy nyári+tavaszi, téli és őszi multispektrális műholdképet, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek. A tanítóadatok pixelenként vannak előállítva, így a végső adathalmaz 27 millió tanítóadatból (pixelből) áll. Minden pixelhez hozzá van rendelve a vörös, kék, zöld, közeli infravörös sáv, illetve a "PI", "NDWI", "NDVI", "RNDVI", "SR" indexek. Ezen felül minden pixel címkézve van a \ref{tab:waste-detection-labels} táblázatban leírtak szerint.
+A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanítóadatok közé, illetve a Kiskörei víztároló is. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz letöltöttem egy-egy nyári+tavaszi, téli és őszi multispektrális műholdképet, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek. A tanítóadatok pixelenként vannak előállítva, így a végső adathalmaz 27 millió tanítóadatból (pixelből) áll. Minden pixelhez hozzá van rendelve a vörös, kék, zöld, közeli infravörös sáv, illetve a "PI", "NDWI", "NDVI", "RNDVI", "SR" indexek. Ezen felül minden pixel címkézve van a \ref{tab:waste-detection-labels} táblázatban leírtak szerint. Nagyon fontos, hogy minél pontosabban meg lehessen állapítani, hogy a hulladéklerakókon mely területeken található hulladék, hiszen sok hulladéklerakón törmeléket is tárolnak, ezt általában egy külön területen. Emiatt a tanítóadatokat a következő módszerrel állítottam elő: Megvizsgáltam Google Maps segítségével \cite{googlemaps2024}, hogy az adott hulladéklerakónál hol tárolnak törmeléket és hol tárolnak műanyag alapú hulladékot. A Google Maps légi felvételei elég magas felbontással rendelkeznek ahhoz, hogy szemmel meglehessen különböztetni a műanyag alapú hulladékot a törmeléktől. A \ref{fig:waste-vs-debris} ábrából látható, hogy míg a törmelék inkább fehér színt tartalmaz, addig a műanyag alapú hulladék picit vörösebb, tekintve arra, hogy a műanyag sokszor színezve van. 
 
 \begin{table}[H]
 	\centering
@@ -26,9 +26,34 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 	\label{tab:waste-detection-labels}
 \end{table}
 
+\begin{figure}[H]
+	\centering
+	\subcaptionbox{Műanyag alapú hulladék}{
+		\includegraphics[width=0.45\linewidth]{waste}}
+	\hspace{5pt}
+	\subcaptionbox{Törmelék}{
+		\includegraphics[width=0.45\linewidth]{debris}}
+	\caption{A műanyag alapú hulladék törmelék mellé helyezve. Forrás: Google Maps}
+	\label{fig:waste-vs-debris}
+\end{figure}
+
 \subsection{Tanítási paraméterek}
 
-A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:model-accuracy} \todo{ábra készítés ide} ábrából látható, hogy a csökkentett modell is hasonlóan teljesít a nagy modellhez képest.
+A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapunk.
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A klasszifikálandó felvétel}{
+		\includegraphics[width=0.45\linewidth]{original-pusztazamor}}
+	\hspace{5pt}
+	\subcaptionbox{Teljes méretű modell}{
+		\includegraphics[width=0.45\linewidth]{fullsized}}
+	\hspace{5pt}
+	\subcaptionbox{Csökkentett modell}{
+		\includegraphics[width=0.45\linewidth]{reduced}}
+	\caption{A csökkentett modell hasonlóan teljesít a teljes méretű modellhez}
+	\label{fig:fullsize-vs-reduced}
+\end{figure}
 
 Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok voltak: A \ref{fig:unbalanced-data} ábrából látható, hogy nagyságrendekkel kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról. Emiatt a modell nagyon sok false-negatív-ot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
 
@@ -63,7 +88,7 @@ Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon arányt
     c\acute{\imath}mke \ s\acute{u}lya=\frac{adathalmaz \ m\acute{e}rete}{c\acute{\imath}mke \ darabsz\acute{a}ma}
 \end{equation}
 
-\subsection{Főkomponens analízis(PCA)}
+\subsection{Főkomponens analízis (PCA)}
 
 A modell méretének a csökkentésére még megpróbáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer többek között arra is használható, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt.
 
