@@ -1,6 +1,71 @@
 \chapter {Tesztelés}
 \label{ch:testing}
 
-\subsection {Mérési módszerek}
+\subsection{A teszthalmaz}
 
-A teszteléshez előállítottam egy teszthalmazt, amivel a modell eredményeit összehasonlítottam. Az eredményeket a "Confusion Matrix" módszerével értékeltem ki \cite{CONGALTON199135}.
+A teszthalmaz három drinai felvételből áll, amin kézzel annotáltam a hulladékkal szennyezett területeket. Ez a terület egyben egy szárazföldi hulladéklerakót, illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinorra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, mígy például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinor alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tesztadatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. Látszik ezen a példán, hogy az új modell több false negative-ot termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a false positive-ok arányát a régi modellhez képest. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja volt ennek a kutatásnak, hogy csökkentsem a modell false positive arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
+
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth,frame]{drina_waste}
+	\caption{A drinai hulladéksziget. Egy lebegő zsinor fogja meg a műanyagpalackokat \cite{euronews2024}}
+    \label{fig:drina-floating-waste}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A teszthalmaz kézi annotációja}{
+		\includegraphics[width=0.45\linewidth]{drina-test}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a régi modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-old}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-new}}
+	\caption{Az új modell összehasonlítása a régi modellel az egyik teszt felvételen}
+	\label{fig:old-vs-new}
+\end{figure}
+
+\subsection{Teljesítmény mérési módszerek}
+
+A teszthalmaz eredményekeit a "Confusion Matrix" módszerével értékeltem ki \cite{CONGALTON199135}. Ezután ezeket az értékeket arra használtam, hogy a "Comission rate" (\ref{eq:comission-rate} képlet), "Omission rate" (\ref{eq:omission-rate} képlet), "Match rate" (\ref{eq:match-rate} képlet), illetve "Extraction rate" (\ref{eq:extraction-rate} képlet) értékeket számítsam ki \cite{Fekete2021}.
+
+\begin{equation}\label{eq:comission-rate}
+    Comission \ rate = \frac{N_{com}}{N_{ref}}
+\end{equation}
+
+\begin{equation}\label{eq:omission-rate}
+    Omission \ rate = \frac{N_{om}}{N_{ext}}
+\end{equation}
+
+\begin{equation}\label{eq:match-rate}
+    Match \ rate = \frac{N_{match}}{N_{ref}}
+\end{equation}
+
+\begin{equation}\label{eq:extraction-rate}
+    Extraction \ rate = \frac{N_{ext}}{N_{ref}}
+\end{equation}
+
+$N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a false positive, false negative (A mátrix mellékátlói), true positive (A mátrix főátlója), a modell által detektált pozitív, illetve a referencia adatokban található positív értékek. Összehasonlítottam az új modell teljesítményét a régi modell teljesítményével. A \ref{tab:old-vs-new} táblázatból látható a két modell teljesítményének az átlaga a három felvételen.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | p{0.33\textwidth} | }
+		\hline
+		\textbf{Mérés azonosító} & \textbf{Régi modell átlagai (\%)} & \textbf{új modell átlagai (\%)} \\
+		\hline \hline
+		Comission Rate & 63.67 & 28.13 \\
+		\hline
+		Omission Rate & 26.21 & 70.67 \\
+		\hline
+		Match Rate & 73.79 & 29.32 \\
+		\hline
+        Extraction Rate & 208.18 & 41.31 \\
+		\hline
+	\end{tabular}
+	\caption{A régi modell és az új modell teszteredményei átlatolva}
+	\label{tab:old-vs-new}
+\end{table}
+
+Az új modell egy jóval kisebb false postive aránnyal rendelkezik mint a régi modell, de cserében a false-negative arányok is nagyok. 
