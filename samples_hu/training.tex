@@ -41,6 +41,8 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 
 A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapunk.
 
+
+
 \begin{figure}[H]
 	\centering
   \subcaptionbox{A klasszifikálandó felvétel}{
@@ -90,7 +92,38 @@ Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon arányt
 
 \section{Főkomponens analízis (PCA)}
 
-A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer lényege az, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt. Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek információit megtartva, alacsonyabb dimenziószám segítségével a Random Forest modell hatékonyabban fogja majd feldolgozni a műholdfelvételeket. \cite{Howley2005} megmutatja, hogy egyes modelleken jobb klasszifikációt tudtak elérni több spektrális sávból álló adat esetén.
+A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer lényege az, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. Ezt az is tükrözi, hogy megnőtt átlagosan a Random Forest döntési fáinak a mérete, minél kevesebb dimenziószámú adatot kapott. A \ref{tab:increase-in-model-size} táblázatból látható, hogy különböző főkomponenseknél mekkora volt átlagban a fák mérete. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt. Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek információit megtartva, alacsonyabb dimenziószám segítségével a Random Forest modell hatékonyabban fogja majd feldolgozni a műholdfelvételeket. \cite{Howley2005} megmutatja, hogy egyes modelleken jobb klasszifikációt tudtak elérni több spektrális sávból álló adat esetén. Ennek az az oka, hogy ha igen sok a korreláció a különböző dimenziók között, akkor a modell rátanulhat a zajra. Mivel a modell által használt indexek között sok a korreláció, érdemes megvizsgálni a PCA-t olyan szempontból is, hogy esetleg javít-e a klasszifikációs eredményeken. A PCA alkalmazása a Random Forestre a következő lépésekből áll:
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.3\textwidth} | p{0.3\textwidth} | }
+		\hline
+		\textbf{Főkomponensek száma} & \textbf{Fák méretének mediánja} \\
+		\hline \hline
+		Főkomponensek nélkül (9 dimenzió) & 71.5 \\
+		\hline
+    5 főkomponens & 71 \\
+		\hline
+		4 főkomponens & 73\\
+		\hline
+    3 főkomponens & 85 \\
+    \hline
+	\end{tabular}
+	\caption{A döntési fák méretének a mediánja nem csökkent, amint a főkomponensek száma csökkent, cserében 3 főkomponensnél már nőtt.}
+	\label{tab:waste-detection-labels}
+\end{table}
+
+\begin{enumerate}
+	\item A tanítóadatok standard skálázása (\ref{eq:standard-scaling} képlet).
+	\item A főkomponens analízis alkalmazása a tanítóadatokra.
+	\item A Random Forest modell betanítása a tanítóadatokon.
+\end{enumerate}
+
+\begin{equation}\label{eq:standard-scaling}
+  f(x) = \frac{x - Average}{Standard \ Deviation}
+\end{equation}
+
+A modell tesztelésére is ugyanezeket lépéseket kell elvégezni. A főkomponens analízis használásához a scikit-learn \cite{scikit-learn} Python programcsomagot használtam. 
 
 \section{Nyári és téli adatokra való lebontás}
 
