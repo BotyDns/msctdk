@@ -46,6 +46,8 @@ A hulladékdetektálás témája viszonylag új, és számos fejlemény történ
 
 \cite{Torres2021} egy konvolúciós neuronhálót használ, mely 94.5\%-os átlagos pontossággal és 88.2\%-os F-Score-al rendelkezik. A tanító adathalmaz 3000 ortofotóból áll, melyek 20cm per pixel felbontással rendelkeznek és a vörös, kék és zöld tartományokat tartalmazzák. A felvételeket szakértők annotálták, kézzel. A modell a ResNet50 \cite{ResNet2016} hálóra épül és a Feature Pyramid Network \cite{FPN2017} architektúrával van kiegészítve. A modell figyelembe veszi a hulladéklerakó alakját és kontextusát, mely segít a hulladékdetektálás pontosságának a növelésében.
 
+\cite{Page2020}-ban két Random Forest algoritmust tanítottak be kerekek és műanyagok detektálására, Skóciában. A kutatásukban A Copernicus Sentinel-1 és Sentinel-2 multispektrális műholdfelvételeit használták. A tesztelés során a modellek 211 kerék és műanyag alapú hulladéklerakót találtak, rendre 87.5\% és 84\% pontossággal. A kutatásukban az NDVI, SAVI, illetve NDWI2 indexek kerülnek tárgyalásra és kiszámításra.
+
 \cite{Taggio2022} tengeri hulladékdetektálással foglalkozott Görögország területén levő tengerpartokon: egy felügyelt (Light Gradient Boosting Model) és egy felügyeletlen (K-Means) gépi tanulási algoritmust alkalmaztak PRISMA hiperspektrális műholdfelvételeken, mellyel átlagosan 96\%-os pontosságot értek el. A tanítóadatokat kontrollált környezetben állították elő (\ref{fig:marine-data-controlled}): különböző környezeteket szimutálva vízre helyeztek különböző anyagokból álló hulladékokat, melyekről műholdfelvételek készültek. Ennek köszönhetően pontosan elő tudták állítani a tanítóadatokat \todo{átfogalmazni, mégegyszer elolvasni a cikket}.
 
 \begin{figure}[H]
@@ -66,7 +68,7 @@ A hulladékdetektálás témája viszonylag új, és számos fejlemény történ
     \label{fig:goncalves2020-method}
 \end{figure}
 
-
+\cite{Youme2021}-ben konvolúciós neuronhálót (CNN) használtak, hogy a Szenegál folyó mentén hulladékot detektáljanak Saint-Louis-ban. A kutatáshoz magas felbontású drónfelvételeket használtak. Drónfelvételeket készítettek 5, 10, 30, illetve 300 méter magasságon, úgy, hogy a látási szög merőleges volt a földre. A 10 méter és 30 méteres felvételeket használták a modell betanítására. A kiválasztott kutatási területnek az az előnye, hogy változatos környezetben található, így modell betanítására és tesztelésére is alkalmas. A modell átlagos pontosságát nem mérték, mivel nagy eltérések voltak a vizsgált régiók függvényében. A cikkben említik, hogy a modell pontossága lényegesen növelhető, ha több adattal kerül betanításra. 
 
 \section{Döntési fa}
 \label{ch:decision-tree}

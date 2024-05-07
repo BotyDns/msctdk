@@ -35,3 +35,13 @@ A kutatás során felhasználom a kutatólaborban már számolt indexeket. Ponto
     Simple \ Ratio \ (SR) = \frac{NIR}{Red}
 \end{equation}
 
+A Plastic Index, ahogy a neve is sugallja, egy olyan index, mely a vízen úszó hulladékok pixelein magas értékeket vesz fel, míg a vízpixeleken alacsony értékeket. A számításban kihasználásra kerül az, hogy a közeli-infravörös tartományban a hulladék sokkal jobban visszaverődik a vízhez képest, mint a vörös tartományban. Az NDWI a NIR és zöld sávokat használja fel a vízben található tárgyak, illetve növények kijelölésére \cite{McFeeters1996}. Az NDVI -1 és +1 értékek között tartózkodik. Ha adott területen az NDVI negatív értéket vesz fel, akkor nagy az esélyünk arra, hogy a terület az víz. Ha 1-hez közeli értéket vesz fel, akkor nagy eséllyel növényzet borítja az adott területet. Az RNDVI ennek a -1-szerese. A Simple Ratio is a vörös és közeli infravörös tartományokat használja ki a vegetáció további detektálásához és osztályozásához. 
+
+\cite{Themistocleous2020}-ban összehasonlításra kerülnek ezek az indexek (\ref{fig:index-comparison} ábra): Összekötöttek több műanyag palackot, és felhelyezték a vízre. Ezután Sentinel-2 felvételekkel összehasonlították a különböző indexek teljesítményét ennek a szigetnek a megtalálásában. A kutatás eredménye az volt, hogy a Plastic Index tudta a legjobban kiemelni a műanyag-szigetet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth,frame]{index-comparison}
+	\caption{Különböző indexek összehasonlítása egy mesterségesen előállított úszó műanyag-palack szigeten \cite{Themistocleous2020}}
+    \label{fig:index-comparison}
+\end{figure}
