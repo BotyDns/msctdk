@@ -41,8 +41,6 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 
 A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapunk.
 
-
-
 \begin{figure}[H]
 	\centering
   \subcaptionbox{A klasszifikálandó felvétel}{
@@ -110,7 +108,7 @@ A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis 
     \hline
 	\end{tabular}
 	\caption{A döntési fák méretének a mediánja nem csökkent, amint a főkomponensek száma csökkent, cserében 3 főkomponensnél már nőtt.}
-	\label{tab:waste-detection-labels}
+	\label{tab:increase-in-model-size}
 \end{table}
 
 \begin{enumerate}

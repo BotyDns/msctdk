@@ -36,7 +36,7 @@ Tekintve arra, hogy a Tiszta-Tisza térképén pontok vannak megjelenítve, a mo
     \label{fig:clean-tisza}
 \end{figure}
 
-\subsection {A képfeldolgozás gyorsítása}
+\subsection{A képfeldolgozás gyorsítása}
 A meglevő képfeldolgozó algoritmuson gyorsítani kellett, hogy elfogadható időn belül tudja feldolgozni a tanítóadatokat, illetve a naponta letöltött műholdfelvételeket a szerveren. Ezt a kutatólabor korábbi cikkjében párhuzamosítással javasolták, de egy egyszálú megoldással lényegesen tudtam gyorsítani a képfeldolgozáson: Ehhez egy nagyon hatékony Python programcsomagot, a Numpy-t \cite{harris2020array} használtam fel, mellyel lényegesen megnöveltem a feldolgozás sebességét: A tanítóadatok feldolgozásakor a régi módszer (\ref{src:old-code} forráskód) 16 felvételt tudott feldolgozni 4 nap és 10 óra alatt, míg az átírt módszer (\ref{src:new-code} forráskód) feldolgozott 85 felvételt 20 perc alatt.
 
 \lstset{caption={A képfeldolgozás régi módszere}, label=src:old-code}
@@ -123,10 +123,50 @@ def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarra
     return index
 \end{lstlisting}
 
+\cite{magyar2023}-ban megmérték a modell feldolgozási sebességét különböző méretű felvételeken. Az első felvételt el tudtam kérni a szerzőtől, de a többi felvételt újból előállítottam, igyekezve arra, hogy hasonló legyen a felvételek mérete. A \ref{tab:old-speed} táblázatban találhatóak a régi feldolgozás sebességei a régi modell mellett. A \ref{tab:new-speed} táblázatban látható a régi és új modell feldolgozási sebessége az új számolási módszerrel \todo{új módszert is megjeleníteni}. Fontos megjegyezni azt, hogy nem ugyanazon a számítógépen történt az új módszer sebességének a lemérése, de a két számítógép számolóképessége ugyanabban a súlycsoportban van. A két táblázatból láthatjuk, hogy az új indexszámolási módszer körülbelül felére csökkentette a feldolgozási és osztályozási időt, mostmár az idő nagy része az osztályozással és az osztályozás feldolgozásával megy el. További kutatás esetén érdemes lehet megvizsgálni az osztályozás feldolgozásával kapcsolatos lassulásokat annak érdekében, hogy ezt a feldolgozást gyorsítsuk.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.45\textwidth} | p{0.45\textwidth} | }
+		\hline
+		\textbf{Felvétel mérete (pixel)} & \textbf{feldolgozási idő} \\
+		\hline \hline
+		164 × 312 = 51 168  & 2.17 mp  \\
+		\hline
+		1194 × 801 = 956 394 & 39.98 mp\\
+		\hline
+		4597 × 4153 = 19 091 341 & 12 perc 42 mp \\
+		\hline
+        6614 × 5981 = 39 558 334 & 26 perc 5 mp  \\
+		\hline
+	\end{tabular}
+	\caption{A régi modell régi módszerrel való feldolgozási ideje}
+	\label{tab:old-speed}
+\end{table}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.45\textwidth} | p{0.45\textwidth} | }
+		\hline
+		\textbf{Felvétel mérete (pixel)} & \textbf{Feldolgozási idő (Régi modell)} \\
+		\hline \hline
+		164 × 312 = 51 168  & 1.88mp  \\
+		\hline
+		1262 × 820 = 1 034 840 & 19.06 mp\\
+		\hline
+		4951 × 4002 = 19 813 902 & 6 perc 16 mp \\
+		\hline
+        10366 × 3860 = 40 012 760 & 14 perc 24 mp  \\
+		\hline
+	\end{tabular}
+	\caption{A régi és új modell új módszerrel való feldolgozási ideje}
+	\label{tab:new-speed}
+\end{table}
+
 \section{Közös metszet}
 \label{ch:intersection}
 
-A már meglevő szervertől poligonok formájában, GeoJSON-ben \cite{rfc7946} lehet lekérni az adott napon detektált hulladékos területeket. így érdemes poligonok metszetében kigondolni a többségi szavazást. Jelöljük BUF(P,n)-vel egy multipoligon pufferét, ahol $P \in \mathbb{P}$ egy multipoligon, és n egy egész szám. Ekkor a többségi szavazást három képre a \ref{eq:voting} \todo{hasonló képleteket mások is ismernek fórumokban, de hivatalos forrással nem találkoztam} képlet szerint lehet alkalmazni. Ezután a poligonok egy-egy belső pontját megválasztva megtudjuk jelölni a hulladéklerakókat. A megközelítés szavakra bontva a következő: az összes multipoligon párra vesszük a két multipoligon metszetét, (ahol egy n méretű hibahatár is belefér a metszet számolásba), utána a poligonpárokat rendre összeúniózzuk. A \ref{fig:union-intersection} ábra vizualizálja a képlet lépéseit.
+A már meglevő szervertől poligonok formájában, GeoJSON-ben \cite{rfc7946} lehet lekérni az adott napon detektált hulladékos területeket. így érdemes poligonok metszetében kigondolni a többségi szavazást. Jelöljük BUF(P,n)-vel egy multipoligon pufferét, ahol $P \in \mathbb{P}$ egy multipoligon, és n egy egész szám. Ekkor a többségi szavazást három képre a \ref{eq:voting} \todo{hasonló képleteket mások is ismernek fórumokban, de hivatalos forrással nem találkoztam} képlet szerint lehet alkalmazni. Ezután a poligonok egy-egy belső pontját megválasztva megtudjuk jelölni a hulladéklerakókat. A megközelítés szavakra bontva a következő: az összes multipoligon párra vesszük a két multipoligon metszetét, (ahol egy n méretű hibahatár is belefér a metszet számolásba), utána a poligonpárokat rendre összeúniózzuk. A \ref{fig:union-intersection} ábra vizualizálja a képlet lépéseit. Ezzel a módszerrel ki lehet szűrni azokat a hibákat, melyek rossz minőségű felvételek miatt keletkeznek. Tekintve arra, hogy nem minden Planet felvétel kerül osztályozásra, mivel előfordulnak hiányos vagy felhős felvételek, érdemes megszabni egy időintervallumot, amin belül alkalmazható a többségi szavazás. A dolgozat írásának idejében legfeljebb 1 hónap intervallumon el kell helyezkedjen mind a három felvétel.
 
 \begin{equation}\label{eq:voting}
     Eredm\acute{e}ny \ multipoligon = \bigcup_{P_1 \in \mathbb{P}} \bigcup_{P_2 \in \mathbb{P}} BUF(BUF(P_1,n) \cap BUF(P_2,n),-n)
