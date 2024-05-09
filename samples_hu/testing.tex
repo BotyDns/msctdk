@@ -96,7 +96,7 @@ A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis móds
 	\label{fig:pca-vs-no-pca}
 \end{figure}
 
-A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:water-pca-vs-nopca} ábrából is látható. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküi modell.
+A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküi modell.
 
 \begin{table}[H]
 	\centering
@@ -113,6 +113,25 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
         Extraction Rate & 65.25 \\
 		\hline
 	\end{tabular}
-	\caption{A régi modell és az új modell teszteredményei átlagolva}
-	\label{tab:old-vs-new}
+	\caption{A főkomponens analízissel betanított modell teljesítményének az átlagai}
+	\label{tab:pca-vs-no-pca}
 \end{table}
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{Drina műholdfelvétele}{
+		\includegraphics[width=0.45\linewidth]{drina20230521}}
+	\hspace{5pt}
+	\subcaptionbox{A PCA nélküli modell címkézése a Drinán}{
+		\includegraphics[width=0.45\linewidth]{drina-classification-no-pca}}
+	\hspace{5pt}
+	\subcaptionbox{A PCA-val betanított modell címkézése a Drinán}{
+		\includegraphics[width=0.45\linewidth]{drina-classification-with-pca}}
+	\caption{A főkomponens analízissel betanított modell osztályozásának össszehasonlítása a PCA nélkül betanított modellel. Felvétel dátuma: 2023-05-21}
+	\label{fig:classification-pca-vs-no-pca}
+\end{figure}
+
+\section{Vízmaszkolás}
+
+Az egyik kihívás a hulladékdetektálásban a nagy lefedettségű területek feldolgozása. A kutatásunk célja a folyók közelében található hulladékkal szennyezett területeknek a detektálása, így a folyóktól távolabbi területeket érdemes kivágni a gyorsabb osztályozás érdekében. Az egyik hosszútávú cél az, hogy hosszabb folyószakaszokon is lehessen futtatni a Random Forest modellt, úgy, hogy az osztályozás elfogadható futási időn belül történjen meg.
+\todo{hogy hivatkozhatok itt a laborban meglevő munkára, anélkül, hogy saját eredményként tűntessem fel?}  

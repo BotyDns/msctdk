@@ -104,15 +104,9 @@ Az egyik legnagyobb kihívás az Random Forestnek az, hogy hogyha elég nagy elt
 \section{Főkomponens analízis (PCA)}
 \label{ch:pca-methodology}
 
-A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer lényege az, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. Ezt az is tükrözi, hogy megnőtt átlagosan a Random Forest döntési fáinak a mérete, minél kevesebb dimenziószámú adatot kapott. A \ref{tab:increase-in-model-size} táblázatból látható, hogy különböző főkomponenseknél mekkora volt átlagban a fák mérete. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt. 
+A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis (PCA) alkalmazását is \cite{pca2010}. A módszer lényege az, hogy egy többdimenziós adathalmazból kivonja a legfontosabb információkat egy alacsonyabb dimenziószámú adathalmazba. Az eredeti ötlet az volt, hogy a bemeneti adatok dimenziószámának a csökkentésével csökkenni fog a modell mérete, de érdekes módon a modell mérete nem csökkent a dimenziószám csökkentésével, helyette lényegesen megnőtt. Ezt az is tükrözi, hogy megnőtt átlagosan a Random Forest döntési fáinak a mérete, minél kevesebb dimenziószámú adatot kapott. A \ref{tab:increase-in-model-size} táblázatból látható, hogy különböző főkomponenseknél mekkora volt átlagban a fák mérete az adatok dimenziószámának függvényében. További vizsgálatok után kiderült, hogy hogyha kevesebb dimenziójú adatot adtam a modellnek, akkor a mérete lényegesen megnőtt. 
 
-Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek információit megtartva, alacsonyabb dimenziószám segítségével a Random Forest modell hatékonyabban fogja majd feldolgozni a műholdfelvételeket. \cite{Howley2005} megmutatja, hogy egyes modelleken jobb klasszifikációt tudtak elérni több spektrális sávból álló adat esetén. Ennek az az oka, hogy ha igen sok a korreláció a különböző dimenziók között, akkor a modell rátanulhat a zajra. Mivel a modell által használt indexek között sok a korreláció, érdemes megvizsgálni a PCA-t olyan szempontból is, hogy esetleg javít-e a klasszifikációs eredményeken. A PCA alkalmazása a Random Forestre a következő lépésekből áll:
-
-\begin{enumerate}
-	\item A tanítóadatok standard skálázása (\ref{eq:standard-scaling} képlet).
-	\item A főkomponens analízis alkalmazása a tanítóadatokra.
-	\item A Random Forest modell betanítása a tanítóadatokon.
-\end{enumerate}
+Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek információit megtartva, alacsonyabb dimenziószám segítségével a Random Forest modell hatékonyabban fogja majd feldolgozni a műholdfelvételeket. \cite{Howley2005} megmutatja, hogy egyes modelleken jobb klasszifikációt tudtak elérni több spektrális sávból álló adat esetén. Ennek az az oka, hogy ha igen sok a korreláció a különböző dimenziók között, akkor a modell rátanulhat a zajra. Mivel a modell által használt indexek között sok a korreláció, érdemes megvizsgálni a PCA-t olyan szempontból is, hogy esetleg javít-e a klasszifikációs eredményeken. 
 
 \begin{table}[H]
 	\centering
@@ -133,9 +127,26 @@ Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek 
 	\label{tab:increase-in-model-size}
 \end{table}
 
+A PCA alkalmazása a Random Forestre a következő lépésekből áll:
+\begin{enumerate}
+	\item A tanítóadatok standard skálázása a \ref{eq:standard-scaling} képlet szerint.
+	\item A főkomponens analízis alkalmazása a tanítóadatokra.
+	\item A Random Forest modell betanítása a tanítóadatokon.
+\end{enumerate}
+A főkomponens analízis folyamatának a geometriai jelentését a \ref{fig:elek-pca} ábra illusztrálja.
+
 \begin{equation}\label{eq:standard-scaling}
   f(x) = \frac{x - Average}{Standard \ Deviation}
 \end{equation}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=\textwidth,frame]{elek_pca}
+	\caption{A főkomponens analízis geometriai jelentése: a standardizálás 0 várható értékűvé és
+  1 empirikus szórásúvá teszi a változókat, vagyis a pontfelhőt betolja az origóba,
+  majd elforgatja a legnagyobb variancia irányába, ami az első főkomponens \cite{elek2011}}
+    \label{fig:elek-pca}
+\end{figure}
 
 A modell tesztelésére is ugyanezeket lépéseket kell elvégezni. A főkomponens analízis használásához a scikit-learn \cite{scikit-learn} Python programcsomagot használtam. A főkomponenssel betanított modellt a \ref{ch:teaching-params} fejezetben részletezem. A \ref{ch:pca-performance} fejezetben részletezem a főkomponens analízissel tanított modell teljesítményét.
 
