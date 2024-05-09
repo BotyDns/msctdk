@@ -30,7 +30,7 @@ A teszthalmaz három drinai felvételből áll, amin kézzel annotáltam a hulla
 	\hspace{5pt}
 	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
 		\includegraphics[width=0.45\linewidth]{drina-new}}
-	\caption{Az új modell összehasonlítása a régi modellel az egyik teszt felvételen}
+	\caption{Az új modell összehasonlítása a régi modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023-05-07}
 	\label{fig:old-vs-new}
 \end{figure}
 
@@ -77,3 +77,42 @@ $N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a false positive,
 
 Az új modell egy jóval kisebb false postive aránnyal rendelkezik mint a régi modell, de cserében a false-negative arányok is nagyok. Ennek oka a \ref{fig:old-vs-new} ábrából látható, hiszen a régi modell sokkal több pontot detektál a hulladékszigeten, míg az új modell kevesebb pontot detektál, de továbbra is nagy mértékben megtalálja a hulladékszigetet. Illetve a \ref{ch:test-set} fejezetben is tárgyaltam, hogy a szárazföldi hulladéklerakót a folyó mellett az új modell már megtalálja, míg a régi nem találja meg. Tekintve arra, hogy a match rate a true positive-al arányos, és az Extraction rate az összes pozitive-al arányos, ezek az értékek is kisebbek lesznek, mint a régi modell értékei.
 
+\section{Főkomponens analízis teljesítménye}
+\label{ch:pca-performance}
+
+A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis módszert is összehasonlítottam az új modell teljesítményével, a Confusion Matrix módszerének segítségével. A \ref{fig:pca-vs-no-pca} ábrából látható, hogy a főkomponens analízissel tanított modell sokkal jobban ki tudja szűrni a vízfelszínen kialakuló zajt. Az is látható, hogy a főkomponens analízissel kombinált Random Forest is hasonlóan tudja detektálni a hulladékkal szennyezett területeket.
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A teszthalmaz kézi annotációja}{
+		\includegraphics[width=0.45\linewidth]{drina-test}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-new}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel, PCA segítségével}{
+		\includegraphics[width=0.45\linewidth]{drina-with-pca}}
+	\caption{Az új modell összehasonlítása a PCA-val tanított modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023-05-07}
+	\label{fig:pca-vs-no-pca}
+\end{figure}
+
+A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:water-pca-vs-nopca} ábrából is látható. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküi modell.
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | }
+		\hline
+		\textbf{Mérés azonosító} & \textbf{PCA-val tanított modell átlagai (\%)} \\
+		\hline \hline
+		Comission Rate & 39.01 \\
+		\hline
+		Omission Rate & 65.00 \\
+		\hline
+		Match Rate & 34.99  \\
+		\hline
+        Extraction Rate & 65.25 \\
+		\hline
+	\end{tabular}
+	\caption{A régi modell és az új modell teszteredményei átlagolva}
+	\label{tab:old-vs-new}
+\end{table}
