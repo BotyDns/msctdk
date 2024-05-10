@@ -96,7 +96,7 @@ A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis móds
 	\label{fig:pca-vs-no-pca}
 \end{figure}
 
-A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküi modell.
+A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküli modell.
 
 \begin{table}[H]
 	\centering
@@ -135,3 +135,41 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 
 Az egyik kihívás a hulladékdetektálásban a nagy lefedettségű területek feldolgozása. A kutatásunk célja a folyók közelében található hulladékkal szennyezett területeknek a detektálása, így a folyóktól távolabbi területeket érdemes kivágni a gyorsabb osztályozás érdekében. Az egyik hosszútávú cél az, hogy hosszabb folyószakaszokon is lehessen futtatni a Random Forest modellt, úgy, hogy az osztályozás elfogadható futási időn belül történjen meg.
 \todo{hogy hivatkozhatok itt a laborban meglevő munkára, anélkül, hogy saját eredményként tűntessem fel?}  
+
+\section{Nyári és téli adatokra bontás teljesítménye}
+\label{ch:summer-winter-models}
+
+A nyári és téli adatokra bontásnál javulásra lehet számítani az eredményekben, tekintve arra, hogy a két modell az adott évszakokra specializálódik. A \ref{tab:summer-winter-split} táblázatból \todo{táblázatot kijavítani} látható, hogy a külön nyári felvételeken tanított modell jobban teljesít az általánosan betanított modellnél. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizhessük. 
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | }
+		\hline
+		\textbf{Mérés azonosító} & \textbf{időszakra tanított modellek átlagai (\%)} \\
+		\hline \hline
+		Comission Rate & 39.01 \\
+		\hline
+		Omission Rate & 65.00 \\
+		\hline
+		Match Rate & 34.99  \\
+		\hline
+        Extraction Rate & 65.25 \\
+		\hline
+	\end{tabular}
+	\caption{A külön nyári és téli időszakra tanított modellek átlagai}
+	\label{tab:summer-winter-split}
+\end{table}
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A teszthalmaz kézi annotációja}{
+		\includegraphics[width=0.45\linewidth]{drina-test}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-new}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a nyári modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-summer}}
+	\caption{Az új modell összehasonlítása a nyári modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023-05-07}
+	\label{fig:summer-vs-new}
+\end{figure}

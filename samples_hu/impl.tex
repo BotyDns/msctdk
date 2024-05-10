@@ -10,7 +10,7 @@ A meglevő asztali alkalmazás alkalmas volt a tanítóadatok hatékony előáll
 
 \subsection {A szerveralkalmazás bővítése}
 
-A szerveralkalmazás és webalkalmazás is bővítésre került: a szerveralkalmazás mostmár több modellt is le tud futtatni a letöltött műholdfelvételeken és ezeket külön tárolja. A webalkalmazás mostmár képes letölteni külön ezeket az eredményeket és több hulladékmaszkoló módszer eredményét is meg tudja jeleníteni, ennek köszönhetően ezeket egymással össze lehet könnyen hasonlítani valós tesztadatokon \todo{Melyik linket írjam ide, mit írjak szerzőnek?}. A \ref{fig:waste-detection-demo} ábrán látható, ahogy lehet váltakozni a hulladékdetektálási modellek között.
+A szerveralkalmazás és webalkalmazás is bővítésre került: a szerveralkalmazás mostmár több modellt is le tud futtatni a letöltött műholdfelvételeken és ezeket külön tárolja. A webalkalmazás mostmár képes letölteni külön ezeket az eredményeket és több hulladékmaszkoló módszer eredményét is meg tudja jeleníteni, ennek köszönhetően ezeket egymással össze lehet könnyen hasonlítani valós tesztadatokon \todo{Melyik linket írjam ide, mit írjak szerzőnek?}. A \ref{fig:waste-detection-demo} ábrán látható, ahogy lehet váltakozni a hulladékdetektálási modellek között, és a \ref{tab:model-ids} táblázat szerint lehet beazonosítani a dolgozatban említett modelleket. Az "old\_model"-en kívül az összes model a \ref{ch:training} fejezetben részletezett súlyozással és méretcsökkentési módszerekkel tanítottam be.
 
 \begin{figure}[H]
 	\centering
@@ -22,6 +22,29 @@ A szerveralkalmazás és webalkalmazás is bővítésre került: a szerveralkalm
 	\caption{A webalkalmazás képes több modellnek az eredményét is összehasonlítóképpen megmutatni}
 	\label{fig:waste-detection-demo}
 \end{figure}
+
+\begin{table}[H]
+	\centering
+	\begin{tabular}{ | p{0.3\textwidth} | p{0.7\textwidth} | }
+		\hline
+		\textbf{Modell azonosító} & \textbf{Modell leírás} \\
+		\hline \hline
+		\emph{old\_model} & A Régi modell, ami \cite{magyar2023}-ban lett betanítva \\
+		\hline
+		\emph{allweather\_model} & Egy olyan modell, ami kizárólag a romániai hulladéklerakókon volt betanítva. \\
+		\hline
+		\emph{summer\_model} & A nyári intervallumban található adatokon tanított modell.  \\
+		\hline
+        \emph{winter\_model} & A téli intervallumban található adatokon tanított modell. \\
+        \hline
+        \emph{kiskore\_model} & A romániai hulladéklerakókon és a kiskörei víztorlaszon tanított modell. \\
+		\hline
+        \emph{with\_extra\_unknown\_model} & Amikor a dolgozatomban az "új modell"-re hivatkozok, erre gondolok. hasonlóan volt betanítva, mint a kiskore\_model, annyi különbséggel, hogy hozzávettem több "Ismeretlen" címkéhez tartozó adatot, azért, hogy csökkentsem az utak miatt okozott false-positive-okat. \\
+		\hline
+	\end{tabular}
+	\caption{A külön nyári és téli időszakra tanított modellek átlagai}
+	\label{tab:model-ids}
+\end{table}
 
 \section{A Tiszta-Tisza alkalmazás}
 
@@ -123,7 +146,7 @@ def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarra
     return index
 \end{lstlisting}
 
-\cite{magyar2023}-ban megmérték a modell feldolgozási sebességét különböző méretű felvételeken. Az első felvételt el tudtam kérni a szerzőtől, de a többi felvételt újból előállítottam, igyekezve arra, hogy hasonló legyen a felvételek mérete. A \ref{tab:old-speed} táblázatban találhatóak a régi feldolgozás sebességei a régi modell mellett. A \ref{tab:new-speed} táblázatban látható a régi és új modell feldolgozási sebessége az új számolási módszerrel \todo{új módszert is megjeleníteni}. Fontos megjegyezni azt, hogy nem ugyanazon a számítógépen történt az új módszer sebességének a lemérése, de a két számítógép számolóképessége ugyanabban a súlycsoportban van. A két táblázatból láthatjuk, hogy az új indexszámolási módszer körülbelül felére csökkentette a feldolgozási és osztályozási időt, mostmár az idő nagy része az osztályozással és az osztályozás feldolgozásával megy el. További kutatás esetén érdemes lehet megvizsgálni az osztályozás feldolgozásával kapcsolatos lassulásokat annak érdekében, hogy ezt a feldolgozást gyorsítsuk.
+\cite{magyar2023}-ban megmérték a modell feldolgozási sebességét különböző méretű felvételeken. Az első felvételt el tudtam kérni a szerzőtől, de a többi felvételt újból előállítottam, igyekezve arra, hogy hasonló legyen a felvételek mérete. A \ref{tab:old-speed} táblázatban találhatóak a régi feldolgozás sebességei a régi modell mellett. A \ref{tab:new-speed} táblázatban látható a régi és új modell feldolgozási sebessége az új számolási módszerrel \todo{új módszert is megjeleníteni}. Fontos megjegyezni azt, hogy nem ugyanazon a számítógépen történt az új módszer sebességének a lemérése, de a két számítógép számolóképessége ugyanabban a súlycsoportban van. A két táblázatból láthatjuk, hogy az új indexszámolási módszer körülbelül felére csökkentette a feldolgozási és osztályozási időt, mostmár az idő nagy része az osztályozással és az osztályozás feldolgozásával megy el. További kutatás esetén érdemes lehet megvizsgálni az osztályozás feldolgozásával kapcsolatos lassulásokat annak érdekében, hogy ezt a feldolgozást is gyorsítsuk.
 
 \begin{table}[H]
 	\centering
