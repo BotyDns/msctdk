@@ -33,6 +33,7 @@ A a teszthalmaz öt drinai felvételből áll, ahol a hulladékkal szennyezett t
 	\caption{Az új modell összehasonlítása a régi modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023.05.07.}
 	\label{fig:old-vs-new}
 \end{figure}
+\todo[color=blue!50]{Ez és a többi Drinás kép nagyon sötét. Jó lenne kicsit világosítani a hátteren, akár Photoshoppal :)}
 
 \section{Teljesítmény mérése}
 
@@ -132,6 +133,12 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 \end{figure}
 
 \section{Vízmaszkolás}
+\todo[inline,color=blue!50]{A vízmaszkolásnak van egy műveleti költsége, így csak akkor fog megtérülni a használata, ha akkora területeket lehet kivágni vele, hogy jelentősen spórolunk azon, hogy azokon a területeken nem kell már hulladékot keresni. Emellett a víztől távoli false positive detektálások számát is tudja növelni.\\
+Tamás töltött le egy nagyobb területet, talán ezt:\\
+https://gis.inf.elte.hu:9000/ws-waste-detection/satellite\_images/manual/planetscope/Tisza-Szabolcs\\
+Ezen kiértékelve milyen futási idő jön ki? Ha ott sem jó, akkor a hangsúlyt a false positive-ok csökkentésére helyezném, nem a teljesítményre.\\
+Röviden érdemes a vízmaszkolásról írni szerintem, ha más nem, akkor a future work-ben.\\
+Tamás munkáját nehéz hivatkozni, mivel nem adta / adja le ebben a félévben a diplomamunkáját. Ezen a ponton elég lesz annyi, hogy a vízmaszkolást nem te implementáltad, hanem a labor egy másik résztvevője.}
 
 Az egyik kihívás a hulladékdetektálásban a nagy lefedettségű területek feldolgozása. A kutatásunk célja a folyók közelében található hulladékkal szennyezett területeknek a detektálása, így a folyóktól távolabbi területeket érdemes kivágni a gyorsabb osztályozás érdekében. Az egyik hosszútávú cél az, hogy hosszabb folyószakaszokon is lehessen futtatni a Random Forest modellt, úgy, hogy az osztályozás elfogadható futási időn belül történjen meg.
 Ehhez használtam a vízmaszkolási algoritmust, amit a laboron belül elkészített az egyik kollégám, és megvizsgáltam a modell futási sebességét egy hosszú folyószakaszon. A \ref{tab:river-mask-performance} táblázatból látható, hogy a vízmaszkolás segítségével lényegesen fel lehet gyorsítani a feldolgozás sebességét.
