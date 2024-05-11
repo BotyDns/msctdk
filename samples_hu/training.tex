@@ -18,9 +18,9 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 		\hline
 		\textbf{Címke azonosító} & \textbf{Címke neve} & \textbf{Címke magyarázat} \\
 		\hline \hline
-		\emph{100} & Hulladék & Azon területek, melyeken hulladékot találtunk. \\
+		\emph{100} & Hulladék & Azon területek, melyeken hulladék van. \\
 		\hline
-		\emph{200} & Víz & olyan területek, melyeken kizárólag vizet találtunk, általában folyók. \\
+		\emph{200} & Víz & olyan területek, melyeken kizárólag víz van, általában folyók. \\
 		\hline
 		\emph{300} & Legelők/Erdők & Zöld övezetből álló vad területek. Ezek lehetnek fák lombjai vagy füves zónák. \\
 		\hline
@@ -49,7 +49,7 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 \section{Tanítási paraméterek}
 \label{ch:teaching-params}
 
-A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a modellek méretét 2GB-ra tudtam csökkenteni \todo{táblázat a fák méretéről, a modellek méretéről és a különböző mélységekről}, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapunk.
+A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a model méretét 2GB-ra tudtam csökkenteni, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapok.
 
 \begin{figure}[H]
 	\centering
@@ -65,7 +65,7 @@ A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lesz (körülbelü
 	\label{fig:fullsize-vs-reduced}
 \end{figure}
 
-Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok voltak: A \ref{fig:unbalanced-data} ábrából látható, hogy nagyságrendekkel kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról. Emiatt a modell nagyon sok false-negatív-ot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
+Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok: A \ref{fig:unbalanced-data} ábrából látható, hogy nagyságrendekkel kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról. Emiatt a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
 
 \pgfplotstableread[row sep=\\,col sep=&]{
     label           & value     \\

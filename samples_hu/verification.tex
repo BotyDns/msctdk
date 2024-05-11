@@ -4,7 +4,9 @@
 \section{A teszthalmaz}
 \label{ch:test-set}
 
-A a teszthalmaz öt drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ezek közül 3 nyári felvétel és 2 téli felvétel készült. Ez a terület egyben egy szárazföldi hulladéklerakót \ref{fig:drina-deposit}, illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinorra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinor alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanítóadatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. Látszik ezen a példán, hogy az új modell több false negative-ot termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a false positive-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell false positive arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
+A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót \ref{fig:drina-deposit}, illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinorra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinor alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanítóadatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A téli drinai és nyári kiskörei felvételek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
+
+A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. Látszik ezen a példán, hogy az új modell több false negative-ot termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a false positive-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell false positive arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
 
 \begin{figure}[H]
 	\centering
@@ -63,13 +65,13 @@ $N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a false positive,
 		\hline
 		\textbf{Mérés azonosító} & \textbf{Régi modell átlagai (\%)} & \textbf{új modell átlagai (\%)} \\
 		\hline \hline
-		Comission Rate & 63.67 & 28.13 \\
+		\emph{Comission Rate} & 63.67 & 28.13 \\
 		\hline
-		Omission Rate & 26.21 & 70.67 \\
+		\emph{Omission Rate} & 26.21 & 70.67 \\
 		\hline
-		Match Rate & 73.79 & 29.32 \\
+		\emph{Match Rate} & 73.79 & 29.32 \\
 		\hline
-        Extraction Rate & 208.18 & 41.31 \\
+        \emph{Extraction Rate} & 208.18 & 41.31 \\
 		\hline
 	\end{tabular}
 	\caption{A régi modell és az új modell teszteredményei átlagolva}
@@ -105,13 +107,13 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 		\hline
 		\textbf{Mérés azonosító} & \textbf{PCA-val tanított modell átlagai (\%)} \\
 		\hline \hline
-		Comission Rate & 39.01 \\
+		\emph{Comission Rate} & 39.01 \\
 		\hline
-		Omission Rate & 65.00 \\
+		\emph{Omission Rate} & 65.00 \\
 		\hline
-		Match Rate & 34.99  \\
+		\emph{Match Rate} & 34.99  \\
 		\hline
-        Extraction Rate & 65.25 \\
+        \emph{Extraction Rate} & 65.25 \\
 		\hline
 	\end{tabular}
 	\caption{A főkomponens analízissel betanított modell teljesítményének az átlagai}
@@ -159,21 +161,21 @@ Ehhez használtam a vízmaszkolási algoritmust, amit a laboron belül elkészí
 \section{Nyári és téli adatokra bontás teljesítménye}
 \label{ch:summer-winter-models}
 
-A nyári és téli adatokra bontásnál javulásra lehet számítani az eredményekben, tekintve arra, hogy a két modell az adott évszakokra specializálódik. A \ref{tab:summer-winter-split} táblázatból \todo{táblázatot kijavítani} látható, hogy a külön nyári felvételeken tanított modell jobban teljesít az általánosan betanított modellnél. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizhessük. 
+A nyári és téli adatokra bontásnál javulásra lehet számítani az eredményekben, tekintve arra, hogy a két modell az adott évszakokra specializálódik. A \ref{tab:summer-winter-split} táblázatból \todo{táblázatot kijavítani} látható, hogy a külön nyári felvételeken tanított modell jobban teljesít az általánosan betanított modellnél a nyári felvételeken, illetve a téli modell jobban teljesít az általánosan betanított modellnél a téli felvételeken. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizhessük. 
 
 \begin{table}[H]
 	\centering
 	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | }
 		\hline
-		\textbf{Mérés azonosító} & \textbf{időszakra tanított modellek átlagai (\%)} \\
+		\textbf{Mérés azonosító} & \textbf{Nyári modell átlagai (\%)} \\
 		\hline \hline
-		Comission Rate & 39.01 \\
+		\emph{Comission Rate} & 39.01 \\
 		\hline
-		Omission Rate & 65.00 \\
+		\emph{Omission Rate} & 65.00  \\
 		\hline
-		Match Rate & 34.99  \\
+		\emph{Match Rate} & 34.99  \\
 		\hline
-        Extraction Rate & 65.25 \\
+        \emph{Extraction Rate} & 65.25 \\
 		\hline
 	\end{tabular}
 	\caption{A külön nyári és téli időszakra tanított modellek átlagai}
@@ -194,7 +196,6 @@ A nyári és téli adatokra bontásnál javulásra lehet számítani az eredmén
 	\label{fig:summer-vs-new}
 \end{figure}
 
-
 \section{Normalizálás tesztelése}
 \label{ch:normalization-test} 
 
@@ -212,4 +213,59 @@ A normalizálásnak az volt a motivációja, hogy azokat a felvételeket, amik s
 		\includegraphics[width=0.45\linewidth]{drina-reference-model-20230524}}
 	\caption{A régi, a normalizáció nélkül tanított és a normalizációval tanított modell összehasonlítása a Drinán. Felvétel dátuma: 2023.05.24.}
 	\label{fig:normal-vs-normalized-vs-old}
+\end{figure}
+
+
+\section{Empirikus validáció}
+\label{ch:empirical-validation}
+Az empirikus validáció alá esnek a téli drinai és nyári kiskörei felvételek. Ennek az az oka, hogy a téli drinai felvételek közül kihívás volt megfelelő minőségű felvételt találni numerikus validációra, míg a 2023-as kiskörei adathalmaz tanításra volt használva, így a 2024-es adathalmazból való felvételek is alkalmatlannak bizonyultak numerikus validációra. 
+
+A \ref{fig:drina-winter-all-models} ábrából látható, hogy a téli felvételen árnyék takarja a hulladéksziget felét. Itt látszik, hogy a modellek számára kihívást jelent az árnyék alatt levő hulladéksziget detektálása. Az egyetlen modell, aki képes volt detektálni az árnyék alatti szigetet, az a régi modell volt, de cserében nagyon sok false-positive-ot termelt a többi modellhez képest. Így, a kutatás jelenlegi állapotában a téli hulladékdetektálás jelenti az egyik nagy kihívást.
+
+A \ref{fig:kiskore-all-models} ábrán egy kiskörei felvételen hasonlítottam össze az összes modellt. A három legjobban teljesítő modell az új modell, a nyári adatokon betanított új modell, illetve a főkomponens analízissel betanított modell. Míg a nyári adatokon tanított modell közel teljesített az új modellhez képest, a főkomponens analízissel betanított modell több területet hulladékosnak jelölt a szeméttorlaszon, de cserében intenzívebbek is voltak a false-positive értékek.
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A teszthalmaz kézi annotációja}{
+		\includegraphics[width=0.45\linewidth]{drina-test-20231217}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a régi modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-old-20231217}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-new-20231217}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a téli modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-winter-20231217}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a normalizált modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-reference-20231217}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a PCA-val tanított modellel}{
+		\includegraphics[width=0.45\linewidth]{drina-pca-20231217}}
+	\caption{Az összes modell összehasonlítása az egyik téli drinai teszt felvételen. Felvétel dátuma: 2023.12.17.}
+	\label{fig:drina-winter-all-models}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+  \subcaptionbox{A teszthalmaz kézi annotációja}{
+		\includegraphics[width=0.30\linewidth]{kiskore-test-20240412}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a régi modellel}{
+		\includegraphics[width=0.30\linewidth]{kiskore-old-20240412}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja az új modellel}{
+		\includegraphics[width=0.30\linewidth]{kiskore-new-20240412}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a nyári modellel}{
+		\includegraphics[width=0.30\linewidth]{kiskore-summer-20240412}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a normalizált modellel}{
+		\includegraphics[width=0.30\linewidth]{kiskore-reference-20240412}}
+	\hspace{5pt}
+	\subcaptionbox{A teszthalmaz annotációja a PCA-val tanított modellel}{
+		\includegraphics[width=0.30\linewidth]{kiskore-pca-20240412}}
+	\caption{Az összes modell összehasonlítása az egyik kiskörei teszt felvételen. Felvétel dátuma: 2024.04.12.}
+	\label{fig:kiskore-all-models}
 \end{figure}

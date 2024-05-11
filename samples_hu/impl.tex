@@ -172,17 +172,17 @@ def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarra
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ | p{0.45\textwidth} | p{0.45\textwidth} | }
+	\begin{tabular}{ | p{0.45\textwidth} | p{0.25\textwidth} | p{0.25\textwidth} }
 		\hline
-		\textbf{Felvétel mérete (pixel)} & \textbf{Feldolgozási idő (Régi modell)} \\
+		\textbf{Felvétel mérete (pixel)} & \textbf{Feldolgozási idő (Régi modell)} & \textbf{Feldolgozási idő (Új modell)} \\
 		\hline \hline
-		164 × 312 = 51 168  & 1.88mp  \\
+		164 × 312 = 51 168  & 1.88 mp &  2.89 mp \\
 		\hline
-		1262 × 820 = 1 034 840 & 19.06 mp\\
+		1262 × 820 = 1 034 840 & 19.06 mp & 13.55 mp \\
 		\hline
-		4951 × 4002 = 19 813 902 & 6 perc 16 mp \\
+		4951 × 4002 = 19 813 902 & 6 perc 16 mp & 7 perc 41 mp \\
 		\hline
-        10366 × 3860 = 40 012 760 & 14 perc 24 mp  \\
+        10366 × 3860 = 40 012 760 & 14 perc 24 mp & 17 perc 39 mp \\
 		\hline
 	\end{tabular}
 	\caption{A régi és új modell új módszerrel való feldolgozási ideje}
