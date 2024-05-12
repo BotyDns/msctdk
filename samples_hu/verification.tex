@@ -99,7 +99,7 @@ A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis móds
 	\label{fig:pca-vs-no-pca}
 \end{figure}
 
-A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható: a piros jelöli a hulladékkal szennyezett területeket, kék jelöli a vizet, zöld jelöli a növényzettel borított területet, barna jelöli a mezőt és szürke jelöli az ismeretlen pixeleket, mint például épületek vagy utak. A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküli modell.
+A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható: A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküli modell.
 
 \begin{table}[H]
 	\centering
@@ -140,23 +140,25 @@ Tamás töltött le egy nagyobb területet, talán ezt:\\
 https://gis.inf.elte.hu:9000/ws-waste-detection/satellite\_images/manual/planetscope/Tisza-Szabolcs\\
 Ezen kiértékelve milyen futási idő jön ki? Ha ott sem jó, akkor a hangsúlyt a false positive-ok csökkentésére helyezném, nem a teljesítményre.\\
 Röviden érdemes a vízmaszkolásról írni szerintem, ha más nem, akkor a future work-ben.\\
-Tamás munkáját nehéz hivatkozni, mivel nem adta / adja le ebben a félévben a diplomamunkáját. Ezen a ponton elég lesz annyi, hogy a vízmaszkolást nem te implementáltad, hanem a labor egy másik résztvevője.}
+Tamás munkáját nehéz hivatkozni, mivel nem adta / adja le ebben a félévben a diplomamunkáját. Ezen a ponton elég lesz annyi, hogy a vízmaszkolást nem te implementáltad, hanem a labor egy másik résztvevője. \\
+Botond: Igen, sajnos azon a felvételen értem el a rosszabb futási időt, amit linkeltél. Átfogalmaztam, a hangsújt az esetleges hamis riasztások csökkentésére fektettem.}
 
-Az egyik kihívás a hulladékdetektálásban a nagy lefedettségű területek feldolgozása. A kutatásunk célja a folyók közelében található hulladékkal szennyezett területeknek a detektálása, így a folyóktól távolabbi területeket érdemes kivágni a gyorsabb osztályozás érdekében. Az egyik hosszútávú cél az, hogy hosszabb folyószakaszokon is lehessen futtatni a Random Forest modellt, úgy, hogy az osztályozás elfogadható futási időn belül történjen meg.
-Ehhez használtam a vízmaszkolási algoritmust, amit a laboron belül elkészített az egyik kollégám, és megvizsgáltam a modell futási sebességét egy hosszú folyószakaszon. A \ref{tab:river-mask-performance} táblázatból látható, hogy a vízmaszkolás segítségével lényegesen fel lehet gyorsítani a feldolgozás sebességét.
+A kutatásunk hosszútávú célja a folyók közelében található hulladékkal szennyezett területeknek a detektálása, így a folyóktól távolabbi területeket érdemes kivágni a fölösleges riasztások elkerülésének érdekében. 
+Ehhez használtam egy vízmaszkolási algoritmust, amit a laboron belül elkészített az egyik kollégám, és megvizsgáltam, hogy hogyan teljesít az új modell egy vízmaszk mellett. A \ref{fig:river-mask-performance} ábrán látható az, hogy a modell a folyótól távoli területeket nem osztályozza, így automatikusan a folyótól igen távol levő riasztások kizárásra kerülnek. Természetesen ez paraméterezhető, így ha mégis a Drina melletti hulladéklerakót is szeretnénk vizsgálni, akkor a vízmaszknak egy nagyobb távolságot be lehet állítani.
 
-\begin{table}[H]
+\begin{figure}[H]
 	\centering
-	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | p{0.33\textwidth} | }
-		\hline
-		\textbf{Felvétel mérete (pixel)} & \textbf{folyó maszk nélküli futási idő} & \textbf{futási idő folyó maszkkal} \\
-		\hline \hline
-		 17520 * 13266 = 232,420,320 & 1 óra 41 perc & 2 óra 4 perc \\
-		\hline
-	\end{tabular}
-	\caption{Folyó maszk nélküli futási idő összevetve a folyó maszkolásos futási idővel}
-	\label{tab:river-mask-performance}
-\end{table}
+  \subcaptionbox{A Drina műholdfelvétele.}{
+		\includegraphics[width=0.45\linewidth]{drina-20230507}}
+	\hspace{5pt}
+	\subcaptionbox{A vízmaszk nélküli osztályozás.}{
+		\includegraphics[width=0.45\linewidth]{drina-new-20230507}}
+	\hspace{5pt}
+	\subcaptionbox{A vízmaszkkal történő osztályozás.}{
+		\includegraphics[width=0.45\linewidth]{drina-river-mask-20230507}}
+	\caption{A vízmaszkolt osztályozás összehasonlítása a vízmaszk nélküli osztályozással. A Drina melletti hulladéklerakó kizárásra kerül. Felvétel dátuma: 2023.05.07.}
+	\label{fig:river-mask-performance}
+\end{figure}
 
 \section{Nyári és téli adatokra bontás teljesítménye}
 \label{ch:summer-winter-models}
