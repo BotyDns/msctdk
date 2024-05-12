@@ -1,9 +1,9 @@
 \chapter{Betanítás}
 \label{ch:training}
 
-\section{Tanítóadatok}
+\section{Tanító adatok}
 
-A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanítóadatok közé, illetve a Kiskörei víztároló is. A víztároló már vizsgálva volt \cite{magyar2023}-ban, és alkalmas úszó hulladéksziget detektálására, tekintve arra, hogy a felgyült faágak között nagy koncentrációban jelenik meg műanyag-alapú hulladék. A \ref{fig:kiskore-waste} ábrán látható, hogy miként gyűl össze a hulladék a víztárolónál. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz letöltöttem egy-egy nyári+tavaszi, téli és őszi multispektrális műholdképet, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek. A tanítóadatok pixelenként vannak előállítva, így a végső adathalmaz 27 millió tanítóadatból (pixelből) áll. Minden pixelhez hozzá van rendelve a vörös, kék, zöld, közeli infravörös sáv, illetve a "PI", "NDWI", "NDVI", "RNDVI", "SR" indexek. Ezen felül minden pixel címkézve van a \ref{tab:waste-detection-labels} táblázatban leírtak szerint. Nagyon fontos, hogy minél pontosabban meg lehessen állapítani, hogy a hulladéklerakókon mely területeken található hulladék, hiszen sok hulladéklerakón törmeléket is tárolnak, ezt általában egy külön területen. Emiatt a tanítóadatokat a következő módszerrel állítottam elő: Megvizsgáltam Google Maps segítségével \cite{googlemaps2024}, hogy az adott hulladéklerakónál hol tárolnak törmeléket és hol tárolnak műanyag alapú hulladékot. A Google Maps légi felvételei elég magas felbontással rendelkeznek ahhoz, hogy általában szemmel meglehessen különböztetni a műanyag alapú hulladékot a törmeléktől. A \ref{fig:waste-vs-debris} ábrából látható, hogy míg a törmelék inkább fehér színt tartalmaz, addig a műanyag alapú hulladék picit vörösebb, tekintve arra, hogy a műanyag sokszor színezve van. Emellett, a hulladéklerakókat nagyon konzervatívan jelöltem ki: csak akkor jelöltem be egy területet, mint hulladékos terület, ha a felvételből egyértelmű volt, hogy az adott terület műanyag alapú hulladékkal szennyezett. Természetesen, helyi terepvizsgálattal, illetve magasabb felbontású felvételek készítésével pontosabb adatokat lehetne előállítani. 
+A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete került a tanító adatok közé, illetve a Kiskörei víztároló is. A víztároló már vizsgálva volt \cite{magyar2023}-ban, és alkalmas úszó hulladéksziget detektálására, tekintve arra, hogy a felgyült faágak között nagy koncentrációban jelenik meg műanyag-alapú hulladék. A \ref{fig:kiskore-waste} ábrán látható, hogy miként gyűl össze a hulladék a víztárolónál. A romániai hulladéklerakókat egy helyi weboldalon lehet megtalálni, a hozzájuk tartozó koordinátákkal együtt \cite{wasteromania2019}. Az ott bemutatott 46 hulladéklerakó közül 29 volt alkalmas tanításra: sok hulladéklerakó be lett tömve, vagy föld alatt működik. Minden hulladéklerakóhoz letöltöttem egy-egy nyári+tavaszi, téli és őszi multispektrális műholdképet, melyeket kézzel annotáltam. A nyári és tavaszi képeket azért vontam egybe, mivel ezek hulladékdetektálás szempontjából hasonló adatokat eredményeztek. A tanító adatok pixelenként vannak előállítva, így a végső adathalmaz 27 millió tanító adatból (pixelből) áll. Minden pixelhez hozzá van rendelve a vörös, kék, zöld, közeli infravörös sáv, illetve a "PI", "NDWI", "NDVI", "RNDVI", "SR" indexek. Ezen felül minden pixel címkézve van a \ref{tab:waste-detection-labels} táblázatban leírtak szerint. Nagyon fontos, hogy minél pontosabban meg lehessen állapítani, hogy a hulladéklerakókon mely területeken található hulladék, hiszen sok hulladéklerakón törmeléket is tárolnak, ezt általában egy külön területen. Emiatt a tanító adatokat a következő módszerrel állítottam elő: Megvizsgáltam Google Maps segítségével \cite{googlemaps2024}, hogy az adott hulladéklerakónál hol tárolnak törmeléket és hol tárolnak műanyag alapú hulladékot. A Google Maps légi felvételei elég magas felbontással rendelkeznek ahhoz, hogy általában szemmel meglehessen különböztetni a műanyag alapú hulladékot a törmeléktől. A \ref{fig:waste-vs-debris} ábrából látható, hogy míg a törmelék inkább fehér színt tartalmaz, addig a műanyag alapú hulladék picit vörösebb, tekintve arra, hogy a műanyag sokszor színezve van. Emellett, a hulladéklerakókat nagyon konzervatívan jelöltem ki: csak akkor jelöltem be egy területet, mint hulladékos terület, ha a felvételből egyértelmű volt, hogy az adott terület műanyag alapú hulladékkal szennyezett. Természetesen, helyi terepvizsgálattal, illetve magasabb felbontású felvételek készítésével pontosabb adatokat lehetne előállítani. 
 
 \begin{figure}[H]
 	\centering
@@ -29,7 +29,7 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
         \emph{500} & Ismeretlen & Olyan területek, melyek a korábbi kategóriákba nem sorolhatók bele. Ilyenek az épületek, aszfaltozott utak, háztetők, mezei utak. \\
 		\hline
 	\end{tabular}
-	\caption{A tanítóadatok címkéi}
+	\caption{A tanító adatok címkéi}
 	\label{tab:waste-detection-labels}
 \end{table}
 
@@ -44,7 +44,40 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 	\label{fig:waste-vs-debris}
 \end{figure}
 
+\section{Használt sávok és indexek}
 
+A kutatás során felhasználom a PlanetScope műholdak kék (blue), zöld (green), vörös (red), közeli infravörös (Near-Infrared vagy NIR) sávjat, illetve a kutatólaborban már számolt indexeket. Pontosabban a Plastic Index (\ref{eq:pi} képlet), Normalized Difference Water Index (\ref{eq:ndwi} képlet), Normalized Difference Vegetation Index (\ref{eq:ndvi} képlet), Reversed Normalized Difference Vegetation Index (\ref{eq:rndvi} képlet), Simple Ratio (\ref{eq:sr} képlet) indexek kerülnek számolásra \cite{Themistocleous2020, magyar2023}.
+
+\begin{equation}\label{eq:pi}
+    Plastic \ Index \ (PI) = \frac{NIR}{NIR + Red}
+\end{equation}
+
+\begin{equation}\label{eq:ndwi}
+    Normalized \ Difference \ Water \ Index \ (NDWI) = \frac{Green - NIR}{Green + NIR}
+\end{equation}
+
+\begin{equation}\label{eq:ndvi}
+    Normalized \ Difference \ Vegetation \ Index \ (NDVI) = \frac{NIR - Red}{NIR + Red}
+\end{equation}
+
+\begin{equation}\label{eq:rndvi}
+    Reversed \ Normalized \ Difference \ Vegetation \ Index \ (RNDVI) = \frac{Red - NIR}{Red + NIR}
+\end{equation}
+
+\begin{equation}\label{eq:sr}
+    Simple \ Ratio \ (SR) = \frac{NIR}{Red}
+\end{equation}
+
+A Plastic Index, ahogy a neve is sugallja, egy olyan index, mely a vízen úszó hulladékok pixelein magas értékeket vesz fel, míg a vízpixeleken alacsony értékeket. A számításban kihasználásra kerül az, hogy a közeli-infravörös tartományban a hulladék sokkal jobban visszaverődik a vízhez képest, mint a vörös tartományban. Az NDWI a NIR és zöld sávokat használja fel a vízben található tárgyak, illetve növények kijelölésére \cite{McFeeters1996}. Az NDVI -1 és +1 értékek között tartózkodik. Ha adott területen az NDVI negatív értéket vesz fel, akkor nagy az esélyünk arra, hogy a területet víz borítja. Ha 1-hez közeli értéket vesz fel, akkor nagy eséllyel növényzet borítja az adott területet. Az RNDVI ennek a -1-szerese. A Simple Ratio is a vörös és közeli infravörös tartományokat használja ki a vegetáció további detektálásához és osztályozásához. 
+
+\cite{Themistocleous2020}-ban összehasonlításra kerülnek ezek az indexek (\ref{fig:index-comparison} ábra): Összekötöttek több műanyag palackot, és felhelyezték a vízre. Ezután Sentinel-2 felvételekkel összehasonlították a különböző indexek teljesítményét ennek a szigetnek a megtalálásában. A kutatás eredménye az volt, hogy a Plastic Index tudta a legjobban kiemelni a műanyag-szigetet.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\textwidth,frame]{index-comparison}
+	\caption{Különböző indexek összehasonlítása egy mesterségesen előállított úszó műanyag-palack szigeten \cite{Themistocleous2020}}
+    \label{fig:index-comparison}
+\end{figure}
 
 \section{Tanítási paraméterek}
 \label{ch:teaching-params}
@@ -65,7 +98,7 @@ A Random Forest betanításához a Scikit-Learn Python csomagot használtam \cit
 	\label{fig:fullsize-vs-reduced}
 \end{figure}
 
-Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon aránytalanok: A \ref{fig:unbalanced-data} ábrából látható, hogy nagyságrendekkel kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról. Emiatt a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanítóadatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
+Továbbiakban felmerült az a probléma is, hogy a tanító adatok nagyon aránytalanok: A \ref{fig:unbalanced-data} ábrából látható, hogy nagyságrendekkel kevesebb adattal rendelkeztünk hulladékról, mint az összes többi adatról. Emiatt a modell nagyon sok false-negatívot termelt. Ennek korrigálására súlyokat alkalmaztam a tanító adatokra. A súlyok kiszámolásához az összes címkére a \ref{eq:weights} képletet használtam.
 
 \pgfplotstableread[row sep=\\,col sep=&]{
     label           & value     \\
@@ -100,7 +133,7 @@ Továbbiakban felmerült az a probléma is, hogy a tanítóadatok nagyon arányt
 
 \section{Felvételek normalizálása}
 
-Az egyik gyakori probléma gépi tanulásban az, hogy ha elég nagy eltérések vannak a felvételek között, például időjárás miatt, akkor a modell hajlandó félreosztályozni egyes területeket. Illetve, a műholdak, amikkel készülnek a felvételek idővel újabb műszereket kapnak, amik eltéréseket termelhetnek a felvételeken. Ennek fényében időben is lehetnek lényeges eltérések a felvételek között. Ennek korrigálára érdemes megvizsgálni a műholdfelvételek normalizálását. A normalizálás egy referencia kép szerint történik: kiválasztok egy referencia felvételt egy adott területről és időszakról (nyár, tél), és az összes többi felvételt arról a területről és időszakról erre a felvételre normalizálom. Így a nagymértékű eltérések csökkentve lesznek a modell számára, és várhatóan jobban fogja osztályozni a felvételeket, amik különböző körülmények között voltak előállítva. A normalizáló algoritmust az ELTE IK térinformatikai laboron belül fejlesztette az egyik kollégám.
+Az egyik gyakori probléma gépi tanulásban az, hogy ha elég nagy eltérések vannak a felvételek között, például időjárás miatt, akkor a modell hajlandó félreosztályozni egyes területeket. Illetve, a műholdak, amikkel készülnek a felvételek idővel újabb műszereket kapnak, amik eltéréseket termelhetnek a felvételeken. Ennek fényében időben is lehetnek lényeges eltérések a felvételek között. Ennek korrigálására érdemes megvizsgálni a műholdfelvételek normalizálását. A normalizálás egy referencia kép szerint történik: kiválasztok egy referencia felvételt egy adott területről és időszakról (nyár, tél), és az összes többi felvételt arról a területről és időszakról erre a felvételre normalizálom. Így a nagymértékű eltérések csökkentve lesznek a modell számára, és várhatóan jobban fogja osztályozni a felvételeket, amik különböző körülmények között voltak előállítva. A normalizáló algoritmust az ELTE IK térinformatikai laboron belül fejlesztette az egyik kollégám.
 A normalizált felvételekhez külön kell egy modellt betanítani. Így a teszthalmazban minden területhez és minden évszakhoz kiválasztottam egy-egy felvételt, mint referencia kép. Ezután minden műholdképet normalizáltam a referenciához. A módszer eredményeit a \ref{ch:normalization-test} fejezetben részletezem.
 
 \section{Főkomponens analízis (PCA)}
@@ -125,7 +158,7 @@ A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis 
     \begin{tikzpicture}
         \begin{axis}[
                 ybar,
-                ylabel=megtartott variancia(\%),
+                ylabel=megtartott variancia (\%),
                 bar width=1cm,
                 width=\textwidth,
                 height=0.5\textwidth,
@@ -135,7 +168,7 @@ A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis 
             \addplot table[x=label,y=value]{\varianceretention};
         \end{axis}
     \end{tikzpicture}
-    \caption{A főkomponensek varianciája a tanítóhalmazon. 90\% variancia megtartásának érdekében elég az első három főkomponenst kiválasztani}
+    \caption{A főkomponensek varianciája a tanító halmazon. 90\% variancia megtartásának érdekében elég az első három főkomponenst kiválasztani}
     \label{fig:pca-variance}
 \end{figure}
 
@@ -164,9 +197,9 @@ Ezen felül az is célja volt a PCA alkalmazásának, hogy a kiszámolt indexek 
 
 A PCA alkalmazása a Random Forestre a következő lépésekből áll:
 \begin{enumerate}
-	\item A tanítóadatok standard skálázása a \ref{eq:standard-scaling} képlet szerint.
-	\item A főkomponens analízis alkalmazása a tanítóadatokra.
-	\item A Random Forest modell betanítása a tanítóadatokon.
+	\item A tanító adatok standard skálázása a \ref{eq:standard-scaling} képlet szerint.
+	\item A főkomponens analízis alkalmazása a tanító adatokra.
+	\item A Random Forest modell betanítása a tanító adatokon.
 \end{enumerate}
 A főkomponens analízis folyamatának a geometriai jelentését a \ref{fig:elek-pca} ábra illusztrálja.
 
@@ -187,7 +220,7 @@ A modell tesztelésére is ugyanezeket a lépéseket kell elvégezni. A főkompo
 
 \section{Nyári és téli adatokra való lebontás}
 
-Alapértelmezetten a nyári és téli adatok között lényeges különbség tud lenni távérzékelés szempontból Közép-Európa területén: a téli időszakokban gyérebb a vegetáció, ködösebb a levegő, illetve a nap sem süt ugyanabból a szögből. Ez befolyásolhatja a modell pontosságát is az adott időszakokban. A nyári időszakot márciustól októberig tartó időszakként definiáltam, és a téli időszak pedig novembertől februárig tart. Az időszakok aszerint vannak megválasztva, hogy mikor leveleznek ki, illetve hullatják ki a leveleiket a fák. Valóban, az októberi időszakban már inkább sárgásak lesznek a levelek, de az októberi tanítóhalmaz mérete önmagában igen kicsi érdemi tanításra. A \ref{fig:winter-vs-summer} ábrából látható, hogy főleg a közeli infravörös (NIR) sávokon nagy eltérések vannak a nyári és téli felvételek között. Ennek fényében betanítottam külön egy nyári és egy téli modellt, melyek teljesítményét a \ref{ch:summer-winter-models} fejezetben részletezem.
+Alapértelmezetten a nyári és téli adatok között lényeges különbség tud lenni távérzékelés szempontból Közép-Európa területén: a téli időszakokban gyérebb a vegetáció, ködösebb a levegő, illetve a nap sem süt ugyanabból a szögből. Ez befolyásolhatja a modell pontosságát is az adott időszakokban. A nyári időszakot márciustól októberig tartó időszakként definiáltam, és a téli időszak pedig novembertől februárig tart. Az időszakok aszerint vannak megválasztva, hogy mikor leveleznek ki, illetve hullatják ki a leveleiket a fák. Valóban, az októberi időszakban már inkább sárgásak lesznek a levelek, de az októberi tanító halmaz mérete önmagában igen kicsi érdemi tanításra. A \ref{fig:winter-vs-summer} ábrából látható, hogy főleg a közeli infravörös (NIR) sávokon nagy eltérések vannak a nyári és téli felvételek között. Ennek fényében betanítottam külön egy nyári és egy téli modellt, melyek teljesítményét a \ref{ch:summer-winter-models} fejezetben részletezem.
 
 \begin{figure}
     \begin{tikzpicture}
