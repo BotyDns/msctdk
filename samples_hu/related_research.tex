@@ -28,7 +28,7 @@ A hulladékdetektálás témája viszonylag új, és számos fejlemény történ
 
 \citeauthor{lanorte2017} mezőgazdasági hulladékdetektálásra használtak egy Support Vector Machine modellt, Landsat 8 műholdfelvételeken \cite{lanorte2017}. A szenzor Kék, Zöld, Piros, NIR, SWIR 1, SWIR 2 és CIRRUS sávját használták a tanító adatok és tesztadatok előállítására. Ezután véletlenszerűen szétválasztották az adatokat tanító adatokra és tesztadatokra. A következő osztályokra bontották az adatokat: Hálók, műanyag takarók, föld, növényzet, gyümölcsöskert, olajfás kert, város, fa, fás föld. A modell a tesztadatokat összességében 94\%-os pontossággal tudta klasszifikálni, ahol a legrosszabb arányokat az olajfás kert érte el 77.78\%-os pontossággal.
 
-\citeauthor{zeng2019} a hiperspektrális adatokon tanítottak be egy felügyelt és egy felügyeletlen gépi tanulási módszert \cite{zeng2019}. A működési elv az, hogy a felügyelt módszerrel klasszifikálják a hulladékkal szennyezett területeket, míg a felügyeletlen módszerrel megbecsülik a hulladékkal szennyezett terület kerületét (\ref{fig:zeng} ábra). Ők 99.89\%-os kappa együtthatóval tudtak hulladékot detektálni \todo{Átnézni mégegyszer a cikket és átvizsgálni az adatok helyességét}.
+\citeauthor{zeng2019} a hiperspektrális adatokon tanítottak be egy felügyelt (Multi-Scale Convolutional Neural Network vagy MSCNN) és egy felügyeletlen gépi tanulási módszert (None Maximum Suppression vagy NMS) \cite{zeng2019}. A működési elv az, hogy a felügyelt módszerrel klasszifikálják a hulladékkal szennyezett területeket, míg a felügyeletlen módszerrel megbecsülik a hulladékkal szennyezett terület helyét és terjedelmét (\ref{fig:zeng} ábra). Az MSCNN 99.96\% átlagos pontossággal tudta detektálni a szemetet.
 
 \begin{figure}[H]
 	\centering
@@ -50,7 +50,7 @@ A hulladékdetektálás témája viszonylag új, és számos fejlemény történ
 
 \citeauthor{Page2020} két Random Forest algoritmust tanítottak be kerekek és műanyagok detektálására, Skóciában \cite{Page2020}. A kutatásukban a Copernicus Sentinel-1 és Sentinel-2 multispektrális műholdfelvételeit használták. A tesztelés során a modellek 211 kerék és műanyag alapú hulladéklerakót találtak, rendre 87.5\% és 84\% pontossággal. A kutatásukban az NDVI, SAVI, illetve NDWI2 indexek kerülnek tárgyalásra és kiszámításra.
 
-\citeauthor{Taggio2022} tengeri hulladékdetektálással foglalkoztak Görögország területén levő tengerpartokon: egy felügyelt (Light Gradient Boosting Model) és egy felügyeletlen (K-Means) gépi tanulási algoritmust alkalmaztak PRISMA hiperspektrális műholdfelvételeken, mellyel átlagosan 96\%-os pontosságot értek el \cite{Taggio2022}. A tanító adatokat kontrollált környezetben állították elő (\ref{fig:marine-data-controlled}): különböző környezeteket szimulálva vízre helyeztek különböző anyagokból álló hulladékokat, melyekről műholdfelvételek készültek. Ennek köszönhetően pontosan elő tudták állítani a tanító adatokat \todo{átfogalmazni, mégegyszer elolvasni a cikket}.
+\citeauthor{Taggio2022} tengeri hulladékdetektálással foglalkoztak Görögország területén levő tengerpartokon: egy felügyelt (Light Gradient Boosting Model) és egy felügyeletlen (K-Means) gépi tanulási algoritmust alkalmaztak PRISMA hiperspektrális műholdfelvételeken, mellyel átlagosan 96\%-os pontosságot értek el \cite{Taggio2022}. A tanító adatokat kontrollált környezetben állították elő (\ref{fig:marine-data-controlled}): különböző környezeteket szimulálva vízre helyeztek különböző anyagokból álló hulladékot, melyekről műholdfelvételek készültek.
 
 \begin{figure}[H]
 	\centering
