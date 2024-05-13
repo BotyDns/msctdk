@@ -6,7 +6,7 @@
 
 A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót (\ref{fig:drina-deposit} ábra), illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinórra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinór alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanító adatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A téli drinai és nyári kiskörei felvételek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
 
-A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több \textit{false negative}-ot\todo[color=blue!50]{A magyar szövegben az angol kifejezéseket érdemes tipográfiailag kiemelni, pl. dőlten szedni.} termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a \textit{false positive}-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell \textit{false positive} arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
+A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több \textit{false negative}-ot\todo[color=blue!50]{A magyar szövegben az angol kifejezéseket érdemes tipográfiailag kiemelni, pl. dőlten szedni. Botond: Rendben, a false positive, negative-okat átírtam, ha még találok ilyet a szövegben, azokat is átírom} termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a \textit{false positive}-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell \textit{false positive} arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
 
 \begin{figure}[H]
 	\centering
@@ -57,7 +57,7 @@ A teszthalmaz eredményeit a "Confusion Matrix" módszerével értékeltem ki \c
     Extraction \ rate = \frac{N_{ext}}{N_{ref}}
 \end{equation}
 
-$N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a false positive, false negative (A mátrix mellékátlói), true positive (A mátrix főátlója), a modell által detektált pozitív, illetve a referencia adatokban található positív értékek. Összehasonlítottam az új modell teljesítményét a régi modell teljesítményével. A \ref{tab:old-vs-new} táblázatból látható a két modell teljesítményének az átlaga a három felvételen.
+$N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a \textit{false positive}, \textit{false negative} (A mátrix mellékátlói), \textit{true positive} (A mátrix főátlója), a modell által detektált pozitív, illetve a referencia adatokban található positív értékek. Összehasonlítottam az új modell teljesítményét a régi modell teljesítményével. A \ref{tab:old-vs-new} táblázatból látható a két modell teljesítményének az átlaga a három felvételen.
 
 \begin{table}[H]
 	\centering
@@ -78,7 +78,7 @@ $N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a false positive,
 	\label{tab:old-vs-new}
 \end{table}
 
-Az új modell egy jóval kisebb false postive aránnyal rendelkezik mint a régi modell, de cserében a false-negative arányok is nagyok. Ennek oka a \ref{fig:old-vs-new} ábrából látható, hiszen a régi modell sokkal több pontot detektál a hulladékszigeten, míg az új modell kevesebb pontot detektál, de továbbra is nagy mértékben megtalálja a hulladékszigetet. Illetve a \ref{ch:test-set} fejezetben is tárgyaltam, hogy a szárazföldi hulladéklerakót a folyó mellett az új modell már megtalálja, míg a régi nem találja meg. Tekintve arra, hogy a match rate a true positive-al arányos, és az Extraction rate az összes pozitive-al arányos, ezek az értékek is kisebbek lesznek, mint a régi modell értékei.
+Az új modell egy jóval kisebb \textit{false postive} aránnyal rendelkezik mint a régi modell, de cserében a \textit{false negative} arányok is nagyok. Ennek oka a \ref{fig:old-vs-new} ábrából látható, hiszen a régi modell sokkal több pontot detektál a hulladékszigeten, míg az új modell kevesebb pontot detektál, de továbbra is nagy mértékben megtalálja a hulladékszigetet. Illetve a \ref{ch:test-set} fejezetben is tárgyaltam, hogy a szárazföldi hulladéklerakót a folyó mellett az új modell már megtalálja, míg a régi nem találja meg. Tekintve arra, hogy a match rate a true positive-al arányos, és az Extraction rate az összes pozitive-al arányos, ezek az értékek is kisebbek lesznek, mint a régi modell értékei.
 
 \section{Főkomponens analízis teljesítménye}
 \label{ch:pca-performance}
@@ -99,7 +99,7 @@ A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis móds
 	\label{fig:pca-vs-no-pca}
 \end{figure}
 
-A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb false positive aránnyal rendelkezik, egyben kisebb false negative aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható: A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküli modell.
+A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mutatóit. A táblázatból leolvasható, hogy míg a főkomponens analízis picivel nagyobb \textit{false positive} aránnyal rendelkezik, egyben kisebb \textit{false negative} aránnyal rendelkezik. Ráadásul a felvételeken készülő zajt sokkal jobban kezeli, amint a \ref{fig:classification-pca-vs-no-pca} ábrából is látható: A főkomponens analízissel betanított modell sokkal jobban tudta detektálni a vizet a folyón, mint a főkomponens analízis nélküli modell.
 
 \begin{table}[H]
 	\centering
@@ -135,7 +135,7 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 \end{figure}
 
 \section{Vízmaszkolás}
-\todo[inline,color=blue!50]{A vízmaszkolásnak van egy műveleti költsége, így csak akkor fog megtérülni a használata, ha akkora területeket lehet kivágni vele, hogy jelentősen spórolunk azon, hogy azokon a területeken nem kell már hulladékot keresni. Emellett a víztől távoli false positive detektálások számát is tudja növelni.\\
+\todo[inline,color=blue!50]{A vízmaszkolásnak van egy műveleti költsége, így csak akkor fog megtérülni a használata, ha akkora területeket lehet kivágni vele, hogy jelentősen spórolunk azon, hogy azokon a területeken nem kell már hulladékot keresni. Emellett a víztől távoli \textit{false positive} detektálások számát is tudja növelni.\\
 Tamás töltött le egy nagyobb területet, talán ezt:\\
 https://gis.inf.elte.hu:9000/ws-waste-detection/satellite\_images/manual/planetscope/Tisza-Szabolcs\\
 Ezen kiértékelve milyen futási idő jön ki? Ha ott sem jó, akkor a hangsúlyt a false positive-ok csökkentésére helyezném, nem a teljesítményre.\\

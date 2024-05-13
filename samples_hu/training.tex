@@ -82,7 +82,7 @@ A Plastic Index, ahogy a neve is sugallja, egy olyan index, mely a vízen úszó
 \section{Tanítási paraméterek}
 \label{ch:teaching-params}
 
-A Random Forest betanításához a Scikit-Learn Python csomagot használtam \cite{scikit-learn}. A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lett (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a model méretét 2GB-ra tudtam csökkenteni, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó false-negative ráta, míg a false positive arány nem nő, de cserében egy kezelhető méretű modellt kapok.
+A Random Forest betanításához a Scikit-Learn Python csomagot használtam \cite{scikit-learn}. A nagy adathalmaz miatt a Random Forest modell is nagyon nagy lett (körülbelül 14GB), ami egy nehezen kezelhető méret, így érdemes módosítani a modell paraméterein, hogy ez kisebb méretű legyen. A legjobb eredményeket azzal értem el, hogy a Random Forest fák méretét 20 mélységűre limitáltam. Ennek köszönhetően a model méretét 2GB-ra tudtam csökkenteni, és a \ref{fig:fullsize-vs-reduced} ábrából látható, hogy a csökkentett modellben enyhén megnő a hulladékra vonatkozó \textit{false negative} ráta, míg a \textit{false positive} arány nem nő, de cserében egy kezelhető méretű modellt kapok.
 
 \begin{figure}[H]
 	\centering
