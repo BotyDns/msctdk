@@ -4,14 +4,14 @@
 \section{A teszthalmaz}
 \label{ch:test-set}
 
-A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót (\ref{fig:drina-deposit} ábra), illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinorra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinor alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanító adatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A téli drinai és nyári kiskörei felvételek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
+A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót (\ref{fig:drina-deposit} ábra), illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinórra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinór alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanító adatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A téli drinai és nyári kiskörei felvételek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
 
-A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több false negative-ot termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a false positive-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell false positive arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
+A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több \textit{false negative}-ot\todo[color=blue!50]{A magyar szövegben az angol kifejezéseket érdemes tipográfiailag kiemelni, pl. dőlten szedni.} termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a \textit{false positive}-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell \textit{false positive} arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth,frame]{drina_waste}
-	\caption{A drinai hulladéksziget. Egy lebegő zsinor fogja meg a műanyagpalackokat \cite{euronews2024}}
+	\caption{A drinai hulladéksziget. Egy lebegő zsinór fogja meg a műanyagpalackokat \cite{euronews2024}}
     \label{fig:drina-floating-waste}
 \end{figure}
 
@@ -118,7 +118,7 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 	\end{tabular}
 	\caption{A főkomponens analízissel betanított modell teljesítményének az átlagai}
 	\label{tab:pca-vs-no-pca}
-\end{table}
+\end{table}\todo[color=blue!50]{Mellé raknám a PCA nélküli eredményeket, a könnyebb összevethetőség érdekében.}
 
 \begin{figure}[H]
 	\centering
