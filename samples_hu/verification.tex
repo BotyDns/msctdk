@@ -4,9 +4,9 @@
 \section{A teszthalmaz}
 \label{ch:test-set}
 
-A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót (\ref{fig:drina-deposit} ábra), illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinórra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinór alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanító adatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. A téli drinai és nyári kiskörei felvételek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
+A teszthalmaz 3 nyári drinai felvételből áll, ahol a hulladékkal szennyezett területeket kézzel annotáltam. Ez a terület egyben egy szárazföldi hulladéklerakót (\ref{fig:drina-deposit} ábra), illetve egy vízfelszíni hulladékszigetet is tartalmaz, így alkalmas mindkét detektálásnak a tesztelésére. A \ref{fig:drina-floating-waste} ábrából látható, hogy Drinán úgy fogják meg az úszó műanyag-alapú hulladékot, hogy egy zsinórra ráhúznak üres hordókat, melyek a víz felszínén lebegnek. Így, minden, ami elég könnyű ahhoz, hogy a folyó felszínen ússzon (műanyagpalackok, kisebb fadarabok) megakad a hordók mögött, míg például nagyobb fadarabok, vagy más, nehezebb uszadékok a zsinór alatt elúsznak. Így a folyó felszínén kialakuló sziget nagy koncentrációban tartalmaz műanyag alapú hulladékot, tehát alkalmas arra, hogy a modellt ezen validáljam vízfelszíni hulladékdetektáláshoz. Ráadásul erről a területről nem készültek tanító adatok ebben a kutatásban, így a modell teljesítménye az itteni felvételeken jól tesztelhető. Ezen kívül téli drinai és nyári kiskörei felvételeken is lefuttattam a modelleket, ezek a \ref{ch:empirical-validation} fejezetben vannak vizsgálva.
 
-A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több \textit{false negative}-ot\todo[color=blue!50]{A magyar szövegben az angol kifejezéseket érdemes tipográfiailag kiemelni, pl. dőlten szedni. Botond: Rendben, a false positive, negative-okat átírtam, ha még találok ilyet a szövegben, azokat is átírom.} termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a \textit{false positive}-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, ellenben a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell \textit{false positive} arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
+A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás a régi és az új modell klasszifikációja között a teszthalmaz egyik felvételén. A hulladékos területek pirossal vannak jelölve. Látszik ezen a példán, hogy az új modell több \textit{false negative}-ot\todo[color=blue!50]{A magyar szövegben az angol kifejezéseket érdemes tipográfiailag kiemelni, pl. dőlten szedni. Botond: Rendben, a false positive, negative-okat átírtam, ha még találok ilyet a szövegben, azokat is átírom.} termel főleg a hulladéksziget körül, de ugyanakkor lényegesen lecsökkenti a \textit{false positive}-ok arányát a régi modellhez képest. Ráadásul a folyó mellett található hulladéklerakót is megtalálja az új modell, míg a régi modell nem találja meg, illetve a régi modell a lerakó környékét és az utakat, épületeket gyakran hulladéknak detektálja. Ez egy fontos eredmény, hiszen amint a \ref{ch:goals} fejezetben is tárgyaltam, célja ennek a kutatásnak, hogy csökkentsem a modell \textit{false positive} arányait, miközben továbbra is meg tudja találni a hulladéklerakókat, illetve hulladékszigeteket.
 
 \begin{figure}[H]
 	\centering
@@ -39,7 +39,7 @@ A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás
 
 \section{Teljesítmény mérése}
 
-A teszthalmaz eredményeit a "Confusion Matrix" módszerével értékeltem ki \cite{CONGALTON199135}. Ezután ezeket az értékeket arra használtam, hogy a "Comission rate" (\ref{eq:comission-rate} képlet), "Omission rate" (\ref{eq:omission-rate} képlet), "Match rate" (\ref{eq:match-rate} képlet), illetve "Extraction rate" (\ref{eq:extraction-rate} képlet) értékeket számítsam ki \cite{Fekete2021}.
+A teszthalmaz eredményeit a \textit{Confusion Matrix} módszerével értékeltem ki \cite{CONGALTON199135}. Ezután ezeket az értékeket arra használtam, hogy a "Comission rate" (\ref{eq:comission-rate} képlet), "Omission rate" (\ref{eq:omission-rate} képlet), "Match rate" (\ref{eq:match-rate} képlet), illetve "Extraction rate" (\ref{eq:extraction-rate} képlet) értékeket számítsam ki \cite{Fekete2021}.
 
 \begin{equation}\label{eq:comission-rate}
     Comission \ rate = \frac{N_{com}}{N_{ref}}
@@ -57,7 +57,7 @@ A teszthalmaz eredményeit a "Confusion Matrix" módszerével értékeltem ki \c
     Extraction \ rate = \frac{N_{ext}}{N_{ref}}
 \end{equation}
 
-$N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a \textit{false positive}, \textit{false negative} (A mátrix mellékátlói), \textit{true positive} (A mátrix főátlója), a modell által detektált pozitív, illetve a referencia adatokban található positív értékek. Összehasonlítottam az új modell teljesítményét a régi modell teljesítményével. A \ref{tab:old-vs-new} táblázatból látható a két modell teljesítményének az átlaga a három felvételen.
+$N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a \textit{false positive}, \textit{false negative} (a mátrix mellékátlói), \textit{true positive} (a mátrix főátlója), a modell által detektált pozitív, illetve a referencia adatokban található pozitív értékek. Összehasonlítottam az új modell teljesítményét a régi modell teljesítményével. A \ref{tab:old-vs-new} táblázatból látható a két modell teljesítményének az átlaga a három felvételen.
 
 \begin{table}[H]
 	\centering
@@ -78,12 +78,12 @@ $N_{com}$, $N_{om}$, $N_{match}$, $N_{ext}$, $N_{ref}$, rendre a \textit{false p
 	\label{tab:old-vs-new}
 \end{table}
 
-Az új modell egy jóval kisebb \textit{false postive} aránnyal rendelkezik mint a régi modell, de cserében a \textit{false negative} arányok is nagyok. Ennek oka a \ref{fig:old-vs-new} ábrából látható, hiszen a régi modell sokkal több pontot detektál a hulladékszigeten, míg az új modell kevesebb pontot detektál, de továbbra is nagy mértékben megtalálja a hulladékszigetet. Illetve a \ref{ch:test-set} fejezetben is tárgyaltam, hogy a szárazföldi hulladéklerakót a folyó mellett az új modell már megtalálja, míg a régi nem találja meg. Tekintve arra, hogy a match rate a true positive-al arányos, és az Extraction rate az összes pozitive-al arányos, ezek az értékek is kisebbek lesznek, mint a régi modell értékei.
+Az új modell egy jóval kisebb \textit{false positive} aránnyal rendelkezik mint a régi modell, de cserében a \textit{false negative} arányok is nagyok. Ennek oka a \ref{fig:old-vs-new} ábrából látható, hiszen a régi modell sokkal több pontot detektál a hulladékszigeten, míg az új modell kevesebb pontot detektál, de továbbra is nagy mértékben megtalálja a hulladékszigetet. Illetve a \ref{ch:test-set} fejezetben is tárgyaltam, hogy a szárazföldi hulladéklerakót a folyó mellett az új modell már megtalálja, míg a régi nem találja meg. Tekintve arra, hogy a \textit{match rate} a \textit{true positive}-al arányos, és az \textit{extraction rate} az összes \textit{positive}-al arányos, ezek az értékek is kisebbek lesznek, mint a régi modell értékei.
 
 \section{Főkomponens analízis teljesítménye}
 \label{ch:pca-performance}
 
-A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis módszert is összehasonlítottam az új modell teljesítményével, a Confusion Matrix módszerének segítségével. A \ref{fig:pca-vs-no-pca} ábrából látható, hogy a főkomponens analízissel tanított modell sokkal jobban ki tudja szűrni a vízfelszínen kialakuló zajt. Az is látható, hogy a főkomponens analízissel kombinált Random Forest is hasonlóan tudja detektálni a hulladékkal szennyezett területeket, annyi különbséggel, hogy a hulladékos területen több pontot detektál, de cserében több false-positive-ot termel.
+A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis módszert is összehasonlítottam az új modell teljesítményével, a \textit{Confusion Matrix} módszerének segítségével. A \ref{fig:pca-vs-no-pca} ábrából látható, hogy a főkomponens analízissel tanított modell sokkal jobban ki tudja szűrni a vízfelszínen kialakuló zajt. Az is látható, hogy a főkomponens analízissel kombinált Random Forest is hasonlóan tudja detektálni a hulladékkal szennyezett területeket, annyi különbséggel, hogy a hulladékos területen több pontot detektál, de cserében több \textit{false positive}-ot termel.
 
 \begin{figure}[H]
 	\centering
@@ -93,7 +93,7 @@ A \ref{ch:pca-methodology} fejezetben részletezett főkomponens analízis móds
 	\subcaptionbox{A teszthalmaz annotációja az új modellel.}{
 		\includegraphics[width=0.45\linewidth]{drina-new}}
 	\hspace{5pt}
-	\subcaptionbox{A teszthalmaz annotációja az új modellel, PCA segítségével.}{
+	\subcaptionbox{A teszthalmaz annotációja a PCA-val tanított modellel.}{
 		\includegraphics[width=0.45\linewidth]{drina-with-pca}}
 	\caption{Az új modell összehasonlítása a PCA-val tanított modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023.05.07.}
 	\label{fig:pca-vs-no-pca}
@@ -103,7 +103,7 @@ A \ref{tab:pca-vs-no-pca} táblázatban összesítem a főkomponens analízis mu
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | p{0.33\textwidth}}
+	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | p{0.33\textwidth} | }
 		\hline
 		\textbf{Mérés azonosító} & \textbf{PCA-val tanított modell átlagai (\%)} & \textbf{PCA nélkül tanított modell átlagai (\%)} \\
 		\hline \hline
@@ -163,21 +163,21 @@ Ehhez használtam egy vízmaszkolási algoritmust, amit a laboron belül elkész
 \section{Nyári adatokon betanított modell teljesítménye}
 \label{ch:summer-winter-models}
 
-A nyári adatokon tanított modellnél javulásra lehet számítani az eredményekben, tekintve arra, hogy ez a modell erre az évszakra specializálódik. A \ref{tab:summer-winter-split} táblázatból látható, hogy a külön nyári felvételeken tanított modell picivel kevesebb false-positive-ot tartalmaz az általánosan betanított modellnél a nyári felvételeken. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizzük. 
+A nyári adatokon tanított modellnél javulásra lehet számítani az eredményekben, tekintve arra, hogy ez a modell erre az évszakra specializálódik. A \ref{tab:summer-winter-split} táblázatból látható, hogy a külön nyári felvételeken tanított modell picivel kevesebb false-positive-ot tartalmaz az általánosan betanított modellnél a nyári felvételeken. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen abba az irányba haladni, hogy külön nyári és külön téli modellt tanítunk be, azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizzük. 
 
 \begin{table}[H]
 	\centering
-	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} | }
+	\begin{tabular}{ | p{0.33\textwidth} | p{0.33\textwidth} |  p{0.33\textwidth} | }
 		\hline
-		\textbf{Mérés azonosító} & \textbf{Nyári modell átlagai (\%)} \\
+		\textbf{Mérés azonosító} & \textbf{Nyári modell átlagai (\%)} & \textbf{Az összes évszakra tanított modell átlagai (\%)} \\
 		\hline \hline
-		\emph{Comission Rate} & 26.1 \\
+		\emph{Comission Rate} & 26.1 & 28.13 \\
 		\hline
-		\emph{Omission Rate} & 71.27  \\
+		\emph{Omission Rate} & 71.27 & 70.67 \\
 		\hline
-		\emph{Match Rate} & 28.05  \\
+		\emph{Match Rate} & 28.05 & 29.32 \\
 		\hline
-        \emph{Extraction Rate} & 39.63 \\
+        \emph{Extraction Rate} & 39.63 & 41.31 \\
 		\hline
 	\end{tabular}
 	\caption{A nyári időszakra tanított modell átlagai.}
@@ -201,7 +201,7 @@ A nyári adatokon tanított modellnél javulásra lehet számítani az eredmény
 \section{Normalizálás tesztelése}
 \label{ch:normalization-test} 
 
-A normalizálásnak az volt a motivációja, hogy azokat a felvételeket, amik spektrális értékeikben lényeges eltéréseket tartalmaznak a többi felvételhez képest, tudjam értelmezhetővé tenni a modell számára. Teszteléshez kiválasztottam egy nyári Drinai felvételt, amin az új modell rosszul teljesített, és összehasonlítottam a normalizált képeken betanított modell eredményeivel. A \ref{fig:normal-vs-normalized-vs-old} ábrán látható, hogy a régi modell ezen a felvételen detektálta a hulladékszigetet, de vele együtt detektált nagyon sok false-positive-et is. Az új, normalizálás nélküli modell nagyon kevés hulladékot detektált, míg a normalizált modell ugyancsak sok false-positive-ot detektált. Habár első körben a normalizálással nem a várt eredményeket értem el, egy további kutatási irány lehet ennek a továbbvizsgálása, esetleg más referenciafelvételek megválasztása.
+A normalizálásnak az volt a motivációja, hogy azokat a felvételeket, amik spektrális értékeikben lényeges eltéréseket tartalmaznak a többi felvételhez képest, tudjam értelmezhetővé tenni a modell számára. Teszteléshez kiválasztottam egy nyári Drinai felvételt, amin az új modell rosszul teljesített, és összehasonlítottam a normalizált képeken betanított modell eredményeivel. A \ref{fig:normal-vs-normalized-vs-old} ábrán látható, hogy a régi modell ezen a felvételen detektálta a hulladékszigetet, de vele együtt detektált nagyon sok \textit{false positive}-et is. Az új, normalizálás nélküli modell nagyon kevés hulladékot detektált, míg a normalizált modell ugyancsak sok \textit{false positive}-et detektált. Habár első körben a normalizálással nem a várt eredményeket értem el, egy további kutatási irány lehet ennek a továbbvizsgálása, esetleg más referenciafelvételek megválasztása.
 
 \begin{figure}[H]
 	\centering
