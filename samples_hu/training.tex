@@ -8,7 +8,7 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth,frame]{kiskore-garbage}
-	\caption{A kiskörei víztároló hulladéktorlasza \cite{petkupa2024}}
+	\caption{A kiskörei víztároló hulladéktorlasza \cite{petkupa2024}.}
     \label{fig:kiskore-waste}
 \end{figure}
 
@@ -29,18 +29,18 @@ A betanításhoz 29 romániai hulladéklerakó és közvetlen környezete kerül
     \cellcolor{gray} \emph{500} & Ismeretlen & Olyan területek, melyek a korábbi kategóriákba nem sorolhatók bele. Ilyenek az épületek, aszfaltozott utak, háztetők, mezei utak. \\
 		\hline
 	\end{tabular}
-	\caption{A tanító adatok címkéi}
+	\caption{A tanító adatok címkéi.}
 	\label{tab:waste-detection-labels}
 \end{table}
 
 \begin{figure}[H]
 	\centering
-	\subcaptionbox{Műanyag alapú hulladék}{
+	\subcaptionbox{Műanyag alapú hulladék.}{
 		\includegraphics[width=0.45\linewidth]{waste}}
 	\hspace{5pt}
-	\subcaptionbox{Törmelék}{
+	\subcaptionbox{Törmelék.}{
 		\includegraphics[width=0.45\linewidth]{debris}}
-	\caption{A műanyag alapú hulladék, törmelék mellé helyezve. Forrás: Google Maps}
+	\caption{A műanyag alapú hulladék, törmelék mellé helyezve. Forrás: Google Maps.}
 	\label{fig:waste-vs-debris}
 \end{figure}
 
@@ -75,7 +75,7 @@ A Plastic Index, ahogy a neve is sugallja, egy olyan index, mely a vízen úszó
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=0.6\textwidth,frame]{index-comparison}
-	\caption{Különböző indexek összehasonlítása egy mesterségesen előállított úszó műanyag-palack szigeten \cite{Themistocleous2020}}
+	\caption{Különböző indexek összehasonlítása egy mesterségesen előállított úszó műanyag-palack szigeten \cite{Themistocleous2020}.}
     \label{fig:index-comparison}
 \end{figure}
 
@@ -86,15 +86,15 @@ A Random Forest betanításához a Scikit-Learn Python csomagot használtam \cit
 
 \begin{figure}[H]
 	\centering
-  \subcaptionbox{A klasszifikálandó felvétel}{
+  \subcaptionbox{A klasszifikálandó felvétel.}{
 		\includegraphics[width=0.45\linewidth]{original-pusztazamor}}
 	\hspace{5pt}
-	\subcaptionbox{Teljes méretű modell}{
+	\subcaptionbox{A teljes méretű modell.}{
 		\includegraphics[width=0.45\linewidth]{fullsized}}
 	\hspace{5pt}
-	\subcaptionbox{Csökkentett modell}{
+	\subcaptionbox{A csökkentett modell.}{
 		\includegraphics[width=0.45\linewidth]{reduced}}
-	\caption{A csökkentett modell hasonlóan teljesít a teljes méretű modellhez}
+	\caption{A csökkentett modell keveseb \textit{true positive} értéket termel a teljes méretű modellhez képest a pusztazámori hulladéklerakó egyik felvételén. Felvétel dátuma: 2021.12.08.}
 	\label{fig:fullsize-vs-reduced}
 \end{figure}
 
@@ -123,7 +123,7 @@ Továbbiakban felmerült az a probléma is, hogy a tanító adatok nagyon arány
             \addplot table[x=label,y=value]{\datacounts};
         \end{axis}
     \end{tikzpicture}
-    \caption{Az adatok közötti aránytalanság, logaritmikus skálázással}
+    \caption{Az adatok közötti aránytalanság, logaritmikus skálázással.}
     \label{fig:unbalanced-data}
 \end{figure}
 
@@ -168,7 +168,7 @@ A modell méretének a csökkentésére megvizsgáltam a főkomponens analízis 
             \addplot table[x=label,y=value]{\varianceretention};
         \end{axis}
     \end{tikzpicture}
-    \caption{A főkomponensek varianciája a tanító halmazon. 90\% variancia megtartásának érdekében elég az első három főkomponenst kiválasztani}
+    \caption{A főkomponensek varianciája a tanító halmazon. 90\% variancia megtartásának érdekében elég az első három főkomponenst kiválasztani.}
     \label{fig:pca-variance}
 \end{figure}
 
@@ -212,7 +212,7 @@ A főkomponens analízis folyamatának a geometriai jelentését a \ref{fig:elek
 	\includegraphics[width=\textwidth,frame]{elek_pca}
 	\caption{A főkomponens analízis geometriai jelentése: a standardizálás 0 várható értékűvé és
   1 empirikus szórásúvá teszi a változókat, vagyis a pontfelhőt betolja az origóba,
-  majd elforgatja a legnagyobb variancia irányába, ami az első főkomponens \cite{elek2011}}
+  majd elforgatja a legnagyobb variancia irányába, ami az első főkomponens \cite{elek2011}.}
     \label{fig:elek-pca}
 \end{figure}
 
@@ -320,6 +320,6 @@ Alapértelmezetten a nyári és téli adatok között lényeges különbség tud
           ] coordinates {};
         \end{axis}
       \end{tikzpicture}
-    \caption{Nyári és téli adatok összehasonlítása}
+    \caption{Nyári és téli adatok összehasonlítása.}
     \label{fig:winter-vs-summer}
 \end{figure}

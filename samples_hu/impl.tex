@@ -17,12 +17,12 @@ Ha magát a webalkamazás demó felületét akarod hivatkozni, akkor a https://g
 
 \begin{figure}[H]
 	\centering
-	\subcaptionbox{A webalkalmazás a régi modell eredményeit mutatja a Drinán}{
+	\subcaptionbox{A webalkalmazás a régi modell eredményeit mutatja a Drinán.}{
 		\includegraphics[width=0.45\linewidth]{webapp-drina-old}}
 	\hspace{5pt}
-	\subcaptionbox{A webalkalmazás az új modell eredményeit mutatja a Drinán}{
+	\subcaptionbox{A webalkalmazás az új modell eredményeit mutatja a Drinán.}{
 		\includegraphics[width=0.45\linewidth]{webapp-drina-new}}
-	\caption{A webalkalmazás képes több modellnek az eredményét is összehasonlítóképpen megmutatni}
+	\caption{A webalkalmazás képes több modellnek az eredményét is összehasonlítóképpen megmutatni.}
 	\label{fig:waste-detection-demo}
 \end{figure}
 
@@ -45,7 +45,7 @@ Ha magát a webalkamazás demó felületét akarod hivatkozni, akkor a https://g
         \emph{with\_extra\_unknown\_model} & Amikor a dolgozatomban az "új modell"-re hivatkozok, erre gondolok. hasonlóan volt betanítva, mint a kiskore\_model, annyi különbséggel, hogy hozzávettem több "Ismeretlen" címkéhez tartozó adatot, azért, hogy csökkentsem az utak miatt okozott false-positive-okat. \\
 		\hline
 	\end{tabular}
-	\caption{A külön nyári és téli időszakra tanított modellek átlagai}
+	\caption{A külön nyári és téli időszakra tanított modellek átlagai.}
 	\label{tab:model-ids}
 \end{table}
 
@@ -65,7 +65,7 @@ Tekintve arra, hogy a Tiszta-Tisza térképén pontok vannak megjelenítve, a mo
 \subsection{A képfeldolgozás gyorsítása}
 A meglevő képfeldolgozó algoritmuson gyorsítani kellett, hogy elfogadható időn belül tudja feldolgozni a tanítóadatokat, illetve a naponta letöltött műholdfelvételeket a szerveren. Ezt a kutatólabor korábbi cikkében párhuzamosítással javasolták, de egy egyszálú megoldással lényegesen tudtam gyorsítani a képfeldolgozáson: Ehhez egy nagyon hatékony Python programcsomagot, a Numpy-t \cite{harris2020array} használtam fel, mellyel lényegesen megnöveltem a feldolgozás sebességét: A tanítóadatok feldolgozásakor a régi módszer (\ref{src:old-code} forráskód) 16 felvételt tudott feldolgozni 4 nap és 10 óra alatt, míg az átírt módszer (\ref{src:new-code} forráskód) feldolgozott 85 felvételt 20 perc alatt.
 
-\lstset{caption={A képfeldolgozás régi módszere}, label=src:old-code}
+\lstset{caption={Az index-számolás régi módszere.}, label=src:old-code}
 \begin{lstlisting}[language={Python}]
 def _calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
     """
@@ -103,7 +103,7 @@ def _calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarr
     return index
 \end{lstlisting}
 
-\lstset{caption={A képfeldolgozás numpy-al}, label=src:new-code}
+\lstset{caption={Index-számolás numpy-al.}, label=src:new-code}
 
 \begin{lstlisting}[language={Python}]
 def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarray:
@@ -166,7 +166,7 @@ def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarra
         6614 × 5981 = 39 558 334 & 26 perc 5 mp  \\
 		\hline
 	\end{tabular}
-	\caption{A régi modell régi módszerrel való feldolgozási ideje}
+	\caption{A régi modell régi módszerrel való feldolgozási ideje.}
 	\label{tab:old-speed}
 \end{table}
 
@@ -185,7 +185,7 @@ def calculate_index(numerator: np.ndarray, denominator: np.ndarray) -> np.ndarra
         10366 × 3860 = 40 012 760 & 14 perc 24 mp & 17 perc 39 mp \\
 		\hline
 	\end{tabular}
-	\caption{A régi és új modell új módszerrel való feldolgozási ideje}
+	\caption{A régi és új modell új módszerrel való feldolgozási ideje.}
 	\label{tab:new-speed}
 \end{table}
 
@@ -201,6 +201,6 @@ A már meglevő szervertől poligonok formájában, GeoJSON-ben \cite{rfc7946} l
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=\textwidth,frame]{Waste_markings_flow}
-	\caption{A \ref{eq:voting} képlet lépései}
+	\caption{A \ref{eq:voting} képlet lépései.}
     \label{fig:union-intersection}
 \end{figure}
