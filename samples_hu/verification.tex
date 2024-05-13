@@ -35,7 +35,7 @@ A \ref{fig:old-vs-new} ábrából látható egy-egy vizuális összehasonlítás
 	\caption{Az új modell összehasonlítása a régi modellel az egyik Drinai teszt felvételen. Felvétel dátuma: 2023.05.07.}
 	\label{fig:old-vs-new}
 \end{figure}
-\todo[color=blue!50]{Ez és a többi Drinás kép nagyon sötét. Jó lenne kicsit világosítani a hátteren, akár Photoshoppal :)}
+\todo[color=blue!50]{Ez és a többi Drinás kép nagyon sötét. Jó lenne kicsit világosítani a hátteren, akár Photoshoppal :). Botond: kivilágosítottam.}
 
 \section{Teljesítmény mérése}
 
@@ -160,10 +160,10 @@ Ehhez használtam egy vízmaszkolási algoritmust, amit a laboron belül elkész
 	\label{fig:river-mask-performance}
 \end{figure}
 
-\section{Nyári és téli adatokra bontás teljesítménye}
+\section{Nyári adatokon betanított modell teljesítménye}
 \label{ch:summer-winter-models}
 
-A nyári és téli adatokra bontásnál javulásra lehet számítani az eredményekben, tekintve arra, hogy a két modell az adott évszakokra specializálódik. A \ref{tab:summer-winter-split} táblázatból \todo{táblázatot kijavítani} látható, hogy a külön nyári felvételeken tanított modell jobban teljesít az általánosan betanított modellnél a nyári felvételeken, illetve a téli modell jobban teljesít az általánosan betanított modellnél a téli felvételeken. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizzük. 
+A nyári adatokon tanított modellnél javulásra lehet számítani az eredményekben, tekintve arra, hogy ez a modell erre az évszakra specializálódik. A \ref{tab:summer-winter-split} táblázatból látható, hogy a külön nyári felvételeken tanított modell picivel kevesebb false-positive-ot tartalmaz az általánosan betanított modellnél a nyári felvételeken. A \ref{fig:summer-vs-new} ábrából látható, hogy a nyári modell egy picivel jobban teljesít, mint az általános modell. Természetesen ebbe az irányba haladni azt az implikációt vonja maga után, hogy két modellt kell karbantartani egy modell helyett. Ugyanakkor a téli modell validálása külön kihívást jelent tekintve arra, hogy téli időszakban sokszor homályosak a felvételek a magasabb csapadékszint, és felhősebb viszonyok miatt, emiatt szabad szemmel nehezebb ellenőrizni a modell teljesítményét. Ennek fényében egy további lépése lehet a kutatásnak, hogy akár személyesen, akár magas felbontású drónfelvételek segítségével a téli felvételeket külön leellenőrizzük. 
 
 \begin{table}[H]
 	\centering
@@ -171,16 +171,16 @@ A nyári és téli adatokra bontásnál javulásra lehet számítani az eredmén
 		\hline
 		\textbf{Mérés azonosító} & \textbf{Nyári modell átlagai (\%)} \\
 		\hline \hline
-		\emph{Comission Rate} & 39.01 \\
+		\emph{Comission Rate} & 26.1 \\
 		\hline
-		\emph{Omission Rate} & 65.00  \\
+		\emph{Omission Rate} & 71.27  \\
 		\hline
-		\emph{Match Rate} & 34.99  \\
+		\emph{Match Rate} & 28.05  \\
 		\hline
-        \emph{Extraction Rate} & 65.25 \\
+        \emph{Extraction Rate} & 39.63 \\
 		\hline
 	\end{tabular}
-	\caption{A külön nyári és téli időszakra tanított modellek átlagai}
+	\caption{A nyári időszakra tanított modell átlagai}
 	\label{tab:summer-winter-split}
 \end{table}
 
